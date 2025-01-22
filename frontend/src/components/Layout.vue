@@ -1,14 +1,18 @@
 <template>
   <main id="app">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/admin/">Admin</router-link>
+    <Header />
     <router-view />
   </main>
 </template>
 
 <script>
+import Header from './Header.vue'
+
 export default {
   name: 'LayoutComponent',
+  components: {
+    Header
+  },
   mounted() {
     document.dispatchEvent(new Event('render-event'))
   }
@@ -22,5 +26,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+body {
+  background-color: #f8f9fa;
 }
 </style>
