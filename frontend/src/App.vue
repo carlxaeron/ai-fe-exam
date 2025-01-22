@@ -1,25 +1,17 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <LayoutComponent />
 </template>
 
 <script>
+import LayoutComponent from './components/Layout.vue';
+
 export default {
   name: 'App',
+  components: {
+    LayoutComponent,
+  },
   mounted() {
     document.dispatchEvent(new Event('render-event'))
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

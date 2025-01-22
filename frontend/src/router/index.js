@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
+import AdminHome from '../views/admin/AdminHome.vue';
 
 // Import your views/components here
 
@@ -9,12 +10,15 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/admin',
+    name: 'AdminHome',
+    component: AdminHome
+  },
 ];
 
-if (process.env.VUE_APP_BASE_PATH) routes.forEach(route => route.path = process.env.VUE_APP_BASE_PATH + route.path);
-
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(process.env.VUE_APP_BASE_PATH || '/'),
   routes
 });
 
