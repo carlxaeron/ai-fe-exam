@@ -1,13 +1,15 @@
 {
-  "name": "skilltestfrontend",
+  "name": "ai-fe-exam-CARLLOUISMANUEL",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:gh-pages": "vue-cli-service build --dest dist/gh --mode ghpages",
     "build:prerender": "vue-cli-service build --mode prerender",
     "lint": "vue-cli-service lint",
-    "test-prerender": "node test-puppeteer.js"
+    "test-prerender": "node test-puppeteer.js",
+    "deploy": "gh-pages -d dist/gh"
   },
   "dependencies": {
     "core-js": "^3.8.3",
@@ -22,6 +24,7 @@
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "gh-pages": "^6.3.0",
     "prerender-spa-plugin": "^3.4.0",
     "vue-meta": "^2.4.0"
   },

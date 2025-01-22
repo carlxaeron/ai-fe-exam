@@ -11,6 +11,8 @@ const routes = [
   },
 ];
 
+if (process.env.VUE_APP_BASE_PATH) routes.forEach(route => route.path = process.env.VUE_APP_BASE_PATH + route.path);
+
 const router = createRouter({
   history: createWebHistory(),
   routes

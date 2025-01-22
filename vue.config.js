@@ -3,6 +3,7 @@ const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const path = require('path')
 
 module.exports = defineConfig({
+  publicPath: `${process.env.VUE_APP_BASE_PATH || ''}/`,
   transpileDependencies: true,
   configureWebpack: config => {
     if (process.env.VUE_APP_PRERENDER === 'true') {
