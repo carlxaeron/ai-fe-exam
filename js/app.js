@@ -38,7 +38,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ 
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_HelloWorld_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/HelloWorld.vue */ \"./src/components/HelloWorld.vue\");\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: 'HomeComponent',\n  components: {\n    HelloWorld: _components_HelloWorld_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n  },\n  mounted() {\n    document.dispatchEvent(new Event('render-event'));\n  }\n});\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/views/Home.vue?./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use%5B0%5D!./node_modules/vue-loader/dist/index.js??ruleSet%5B0%5D.use%5B0%5D");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_HelloWorld_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/HelloWorld.vue */ \"./src/components/HelloWorld.vue\");\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: 'HomeView',\n  components: {\n    HelloWorld: _components_HelloWorld_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n  },\n  mounted() {\n    document.dispatchEvent(new Event('render-event'));\n  }\n});\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/views/Home.vue?./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use%5B0%5D!./node_modules/vue-loader/dist/index.js??ruleSet%5B0%5D.use%5B0%5D");
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./src/views/admin/AdminHome.vue?vue&type=script&lang=js":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./src/views/admin/AdminHome.vue?vue&type=script&lang=js ***!
+  \********************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_HelloWorld_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/HelloWorld.vue */ \"./src/components/HelloWorld.vue\");\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: 'AdminHomeView',\n  components: {\n    HelloWorld: _components_HelloWorld_vue__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n  },\n  mounted() {\n    document.dispatchEvent(new Event('render-event'));\n  }\n});\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/views/admin/AdminHome.vue?./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use%5B0%5D!./node_modules/vue-loader/dist/index.js??ruleSet%5B0%5D.use%5B0%5D");
 
 /***/ }),
 
@@ -75,6 +86,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./src/views/admin/AdminHome.vue?vue&type=template&id=52e13078":
+/*!************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./src/views/admin/AdminHome.vue?vue&type=template&id=52e13078 ***!
+  \************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   render: function() { return /* binding */ render; }\n/* harmony export */ });\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.runtime.esm-bundler.js\");\n\nconst _hoisted_1 = {\n  id: \"admin\"\n};\nfunction render(_ctx, _cache, $props, $setup, $data, $options) {\n  const _component_HelloWorld = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)(\"HelloWorld\");\n  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(\"div\", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(\" <img alt=\\\"Vue logo\\\" src=\\\"./assets/logo.png\\\"> \"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_HelloWorld, {\n    msg: \"Welcome to Your Vue.js App - Admin\"\n  })]);\n}\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/views/admin/AdminHome.vue?./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use%5B0%5D!./node_modules/vue-loader/dist/templateLoader.js??ruleSet%5B1%5D.rules%5B3%5D!./node_modules/vue-loader/dist/index.js??ruleSet%5B0%5D.use%5B0%5D");
+
+/***/ }),
+
 /***/ "./src/main.js":
 /*!*********************!*\
   !*** ./src/main.js ***!
@@ -82,7 +104,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.runtime.esm-bundler.js\");\n/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue */ \"./src/App.vue\");\n/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ \"./src/router/index.js\");\n// src/main.js\n\n\n\nconst app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\napp.use(_router__WEBPACK_IMPORTED_MODULE_2__[\"default\"]);\napp.mount('#app');\ndocument.addEventListener('DOMContentLoaded', () => {\n  document.dispatchEvent(new Event('render-event'));\n});\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.runtime.esm-bundler.js\");\n/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue */ \"./src/App.vue\");\n/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ \"./src/router/index.js\");\n/* harmony import */ var _router_admin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router/admin */ \"./src/router/admin.js\");\n// src/main.js\n\n\n\n\nconst app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\n\n// Use the appropriate router based on the path\nif (window.location.pathname.startsWith('/admin')) {\n  app.use(_router_admin__WEBPACK_IMPORTED_MODULE_3__[\"default\"]);\n} else {\n  app.use(_router__WEBPACK_IMPORTED_MODULE_2__[\"default\"]);\n}\napp.mount('#app');\ndocument.addEventListener('DOMContentLoaded', () => {\n  document.dispatchEvent(new Event('render-event'));\n});\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/main.js?");
+
+/***/ }),
+
+/***/ "./src/router/admin.js":
+/*!*****************************!*\
+  !*** ./src/router/admin.js ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var core_js_modules_esnext_iterator_constructor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/esnext.iterator.constructor.js */ \"./node_modules/core-js/modules/esnext.iterator.constructor.js\");\n/* harmony import */ var core_js_modules_esnext_iterator_constructor_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_iterator_constructor_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var core_js_modules_esnext_iterator_for_each_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/esnext.iterator.for-each.js */ \"./node_modules/core-js/modules/esnext.iterator.for-each.js\");\n/* harmony import */ var core_js_modules_esnext_iterator_for_each_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_iterator_for_each_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ \"./node_modules/vue-router/dist/vue-router.mjs\");\n/* harmony import */ var _views_admin_AdminHome_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/admin/AdminHome.vue */ \"./src/views/admin/AdminHome.vue\");\n\n\n\n\n\n// Import your admin views/components here\n\nconst adminRoutes = [{\n  path: '/admin',\n  name: 'AdminHome',\n  component: _views_admin_AdminHome_vue__WEBPACK_IMPORTED_MODULE_2__[\"default\"]\n}\n// Add more admin routes here\n];\nif (({\"VUE_APP_BASE_PATH\":\"/ai-fe-exam\",\"NODE_ENV\":\"development\",\"BASE_URL\":\"/ai-fe-exam/\"}).VUE_APP_ADMIN_BASE_PATH) adminRoutes.forEach(route => route.path = ({\"VUE_APP_BASE_PATH\":\"/ai-fe-exam\",\"NODE_ENV\":\"development\",\"BASE_URL\":\"/ai-fe-exam/\"}).VUE_APP_ADMIN_BASE_PATH + route.path);\nconst adminRouter = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.createRouter)({\n  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.createWebHistory)(),\n  routes: adminRoutes\n});\n/* harmony default export */ __webpack_exports__[\"default\"] = (adminRouter);\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/router/admin.js?");
 
 /***/ }),
 
@@ -93,7 +126,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue_
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var core_js_modules_esnext_iterator_constructor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/esnext.iterator.constructor.js */ \"./node_modules/core-js/modules/esnext.iterator.constructor.js\");\n/* harmony import */ var core_js_modules_esnext_iterator_constructor_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_iterator_constructor_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var core_js_modules_esnext_iterator_for_each_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/esnext.iterator.for-each.js */ \"./node_modules/core-js/modules/esnext.iterator.for-each.js\");\n/* harmony import */ var core_js_modules_esnext_iterator_for_each_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_iterator_for_each_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ \"./node_modules/vue-router/dist/vue-router.esm-bundler.js\");\n/* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/Home.vue */ \"./src/views/Home.vue\");\n\n\n\n\n\n// Import your views/components here\n\nconst routes = [{\n  path: '/',\n  name: 'Home',\n  component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__[\"default\"]\n}];\nif (true) routes.forEach(route => route.path = \"/ai-fe-exam\" + route.path);\nconst router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.createRouter)({\n  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.createWebHistory)(),\n  routes\n});\n/* harmony default export */ __webpack_exports__[\"default\"] = (router);\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/router/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var core_js_modules_esnext_iterator_constructor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/esnext.iterator.constructor.js */ \"./node_modules/core-js/modules/esnext.iterator.constructor.js\");\n/* harmony import */ var core_js_modules_esnext_iterator_constructor_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_iterator_constructor_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var core_js_modules_esnext_iterator_for_each_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/esnext.iterator.for-each.js */ \"./node_modules/core-js/modules/esnext.iterator.for-each.js\");\n/* harmony import */ var core_js_modules_esnext_iterator_for_each_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_iterator_for_each_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ \"./node_modules/vue-router/dist/vue-router.mjs\");\n/* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/Home.vue */ \"./src/views/Home.vue\");\n\n\n\n\n\n// Import your views/components here\n\nconst routes = [{\n  path: '/',\n  name: 'Home',\n  component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__[\"default\"]\n}];\nif (true) routes.forEach(route => route.path = \"/ai-fe-exam\" + route.path);\nconst router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.createRouter)({\n  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.createWebHistory)(),\n  routes\n});\n/* harmony default export */ __webpack_exports__[\"default\"] = (router);\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/router/index.js?");
 
 /***/ }),
 
@@ -152,6 +185,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Hom
 
 /***/ }),
 
+/***/ "./src/views/admin/AdminHome.vue":
+/*!***************************************!*\
+  !*** ./src/views/admin/AdminHome.vue ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _AdminHome_vue_vue_type_template_id_52e13078__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminHome.vue?vue&type=template&id=52e13078 */ \"./src/views/admin/AdminHome.vue?vue&type=template&id=52e13078\");\n/* harmony import */ var _AdminHome_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminHome.vue?vue&type=script&lang=js */ \"./src/views/admin/AdminHome.vue?vue&type=script&lang=js\");\n/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ \"./node_modules/vue-loader/dist/exportHelper.js\");\n\n\n\n\n;\nconst __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(_AdminHome_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"], [['render',_AdminHome_vue_vue_type_template_id_52e13078__WEBPACK_IMPORTED_MODULE_0__.render],['__file',\"src/views/admin/AdminHome.vue\"]])\n/* hot reload */\nif (false) {}\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (__exports__);\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/views/admin/AdminHome.vue?");
+
+/***/ }),
+
 /***/ "./src/App.vue?vue&type=script&lang=js":
 /*!*********************************************!*\
   !*** ./src/App.vue?vue&type=script&lang=js ***!
@@ -185,6 +229,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/views/admin/AdminHome.vue?vue&type=script&lang=js":
+/*!***************************************************************!*\
+  !*** ./src/views/admin/AdminHome.vue?vue&type=script&lang=js ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_40_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminHome_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]; }\n/* harmony export */ });\n/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_40_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminHome_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminHome.vue?vue&type=script&lang=js */ \"./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./src/views/admin/AdminHome.vue?vue&type=script&lang=js\");\n \n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/views/admin/AdminHome.vue?");
+
+/***/ }),
+
 /***/ "./src/App.vue?vue&type=template&id=7ba5bd90":
 /*!***************************************************!*\
   !*** ./src/App.vue?vue&type=template&id=7ba5bd90 ***!
@@ -215,6 +270,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_40_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Home_vue_vue_type_template_id_fae5bece__WEBPACK_IMPORTED_MODULE_0__.render; }\n/* harmony export */ });\n/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_40_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Home_vue_vue_type_template_id_fae5bece__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[0]!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Home.vue?vue&type=template&id=fae5bece */ \"./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./src/views/Home.vue?vue&type=template&id=fae5bece\");\n\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/views/Home.vue?");
+
+/***/ }),
+
+/***/ "./src/views/admin/AdminHome.vue?vue&type=template&id=52e13078":
+/*!*********************************************************************!*\
+  !*** ./src/views/admin/AdminHome.vue?vue&type=template&id=52e13078 ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_40_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminHome_vue_vue_type_template_id_52e13078__WEBPACK_IMPORTED_MODULE_0__.render; }\n/* harmony export */ });\n/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_40_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminHome_vue_vue_type_template_id_52e13078__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminHome.vue?vue&type=template&id=52e13078 */ \"./node_modules/babel-loader/lib/index.js??clonedRuleSet-40.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./src/views/admin/AdminHome.vue?vue&type=template&id=52e13078\");\n\n\n//# sourceURL=webpack://ai-fe-exam-CARLLOUISMANUEL/./src/views/admin/AdminHome.vue?");
 
 /***/ }),
 
