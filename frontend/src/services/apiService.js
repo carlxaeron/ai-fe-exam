@@ -4,9 +4,12 @@ import store from '@/store';
 
 const apiService = {
   login(username, password) {
-    return axiosInstance.post(helper.getBaseUrl('login'), { username, password });
+    return axiosInstance().post(helper.getBaseUrl('login'), { username, password });
   },
-  checkError(error) {
+  createArticle(article) {
+    return axiosInstance({formData: false}).post(helper.getBaseUrl('articles'), article);
+  },
+  handleError(error) {
     const response = error.response;
     if (!response) {
       store.commit('setNotification', { type: 'error', message: 'Network error. Please try again later.', show: true });

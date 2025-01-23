@@ -21,16 +21,12 @@ app.use(cors(corsOptions));
 app.post(
     "/articles",
     [
-      body("relatedCompany").notEmpty().withMessage("Related company is required"),
-      body("image").notEmpty().withMessage("Image is required"),
+      // body("image").notEmpty().withMessage("Image is required"),
       body("title").notEmpty().withMessage("Title is required"),
-      body("link").isURL().withMessage("Link must be a valid URL"),
-      body("date").notEmpty().withMessage("Date is required"),
+      // body("link").isURL().withMessage("Link must be a valid URL"),
+      // body("date").notEmpty().withMessage("Date is required"),
       body("content").notEmpty().withMessage("Content is required"),
-      body("status").isIn(["For Edit", "Published"]).withMessage("Status must be either \"For Edit\" or \"Published\""),
-      body("writer").notEmpty().withMessage("Writer is required"),
-      body("editor").notEmpty().withMessage("Editor is required"),
-      body("company").notEmpty().withMessage("Company is required"),
+      // body("company").notEmpty().withMessage("Company is required"),
     ],
     async (req, res) => {
       const errors = validationResult(req);

@@ -38,7 +38,7 @@ export default {
             this.$router.push({ name: 'Admin' })
           }
         })
-        .catch(error => apiService.checkError(error))
+        .catch(error => apiService.handleError(error))
     }
   }
 }
