@@ -1,6 +1,6 @@
 <template>
   <header>
-    <router-link :to="{name: 'Home'}">
+    <router-link v-show="routerMetaType !== 'login'" :to="{name: 'Home'}">
       <img src="https://placehold.co/250x150" alt="Logo" />
     </router-link>
     <nav>
@@ -30,6 +30,11 @@ export default {
   components: {
     SwitchTheme,
   },
+  computed: {
+    routerMetaType() {
+      return this.$route.meta.type;
+    },
+  },
 }
 </script>
 
@@ -43,6 +48,11 @@ header {
   ul, li {
     list-style-type: none;
     display: inline;
+  }
+  .switch-theme {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 </style>

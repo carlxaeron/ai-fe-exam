@@ -1,9 +1,8 @@
 <template>
   <div id="admin-article">
-    <Modal>
+    <Modal title="Create New Article">
       <template v-slot:default>
         <form @submit.prevent="submitForm">
-
           <div class="form-group">
             <label for="title">Title</label>
             <input type="text" id="title" name="title" v-model="article.title" required>

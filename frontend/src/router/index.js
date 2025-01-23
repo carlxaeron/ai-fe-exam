@@ -17,6 +17,7 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+    meta: { type: 'login' }
   },
   {
     path: '/admin',
