@@ -37,7 +37,12 @@ nav {
   display: flex;
   justify-content: space-around;
 }
-a {
-  text-decoration: none;
+header {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  left: 0;
+  top: 0;
+  background-color: var(--background-color);
+  z-index: 1000;
 }
 </style>
