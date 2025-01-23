@@ -17,21 +17,35 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+// Middleware to check for X-Username header
+const checkUsernameHeader = (req, res, next) => {
+  if (!req.headers["x-usernames"]) {
+    return res.status(400).json({error: "X-Username header is required"});
+  }
+  next();
+};
+
 // Function to create a new article
 app.post(
     "/articles",
+    checkUsernameHeader,
     [
       // body("image").notEmpty().withMessage("Image is required"),
       body("title").notEmpty().withMessage("Title is required"),
       // body("link").isURL().withMessage("Link must be a valid URL"),
       // body("date").notEmpty().withMessage("Date is required"),
       body("content").notEmpty().withMessage("Content is required"),
-      // body("company").notEmpty().withMessage("Company is required"),
+      body("company").notEmpty().withMessage("Company is required"),
     ],
     async (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
+      }
+
+      const {date} = req.body;
+      if (!date) {
+        req.body.date = new Date();
       }
 
       const article = req.body;
@@ -109,7 +123,7 @@ app.post(
     [
       body("logo").notEmpty().withMessage("Logo is required"),
       body("name").notEmpty().withMessage("Name is required"),
-      body("status").isIn(["Active", "Inactive"]).withMessage("Status must be either \"Active\" or \"Inactive\""),
+      body("status").isIn(["active", "inactive"]).withMessage("Status must be either \"Active\" or \"Inactive\""),
     ],
     async (req, res) => {
       const errors = validationResult(req);

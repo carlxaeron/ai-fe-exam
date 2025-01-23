@@ -18,21 +18,23 @@
           </div>
           <div class="form-group">
             <label for="image">Image</label>
-            <input type="file" id="image" name="image" required>
+            <input type="file" id="image" name="image">
           </div>
           <div class="form-group">
             <label for="date">Date</label>
-            <input type="date" id="date" name="date" v-model="article.date" required>
+            <input type="date" id="date" name="date" v-model="article.date">
           </div>
           <div class="form-group">
             <label for="company">Company</label>
-            <select id="company" name="company" required>
-              <option value="1">Company 1</option>
-              <option value="2">Company 2</option>
+            <select id="company" name="company" v-model="article.company" required>
+              <option value="">Select Company</option>
+              <option v-for="company in companies" :key="company.id" :value="company.id">{{ company.name }}</option>
             </select>
           </div>
-          <button type="submit">Create</button>
         </form>
+      </template>
+      <template v-slot:actions>
+        <Button @click="submitForm">Create</Button>
       </template>
     </Modal>
     <button title="Create Article" id="create-admin-article-btn" @click="handleCreateArticle">
@@ -47,12 +49,14 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import Modal from '../Modal.vue';
 import { mapActions } from 'vuex';
 import apiService from '@/services/apiService';
+import Button from '../Button.vue';
 
 export default {
   name: 'AdminArticle',
   components: {
     Modal,
     QuillEditor,
+    Button,
   },
   data() {
     return {
@@ -72,9 +76,20 @@ export default {
   },
   mounted() {
     document.dispatchEvent(new Event('render-event'))
+    
+    apiService.getCompanies()
+      .then((response) => {
+        console.log(response);
+        if(response.data) {
+          this.setCompanies(response.data);
+        }
+      })
+      .catch((error) => {
+        apiService.handleError(error);
+      });
   },
   methods: {
-    ...mapActions(['toggleModal']),
+    ...mapActions(['toggleModal', 'setCompanies']),
     handleCreateArticle() {
       this.toggleModal();
     },
@@ -89,11 +104,11 @@ export default {
         });
     },
   },
-  watch: {
-    content(value) {
-      console.log(value);
-    }
-  }
+  computed: {
+    companies() {
+      return this.$store.getters.getCompanies;
+    },
+  },
 }
 </script>
 

@@ -13,6 +13,10 @@ export default createStore({
       title: '',
     },
     currentUser: null,
+    // data
+    articles: [],
+    companies: [],
+    users: [],
   },
   mutations: {
     toggleTheme(state) {
@@ -36,6 +40,9 @@ export default createStore({
     },
     setModal(state, modal) {
       state.modal = modal;
+    },
+    setCompanies(state, companies) {
+      state.companies = companies;
     }
   },
   actions: {
@@ -60,12 +67,16 @@ export default createStore({
     },
     toggleModal({ commit, state }, modal) {
       commit('setModal', { ...state.modal, show: !state.modal.show, ...modal });
-    }
+    },
+    setCompanies({ commit }, companies) {
+      commit('setCompanies', companies);
+    },
   },
   getters: {
     isDarkTheme: (state) => state.isDarkTheme,
     notification: (state) => state.notification,
     getCurrentUser: (state) => state.currentUser,
     getModal: (state) => state.modal,
+    getCompanies: (state) => state.companies,
   },
 });

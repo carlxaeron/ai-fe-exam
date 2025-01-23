@@ -2,7 +2,12 @@
   <div v-show="isShow" id="modal-container" :class="`modal-size-${size}`">
     <div id="modal">
       <h2>{{ title }}</h2>
-      <slot name="default"></slot>
+      <div id="modal-content">
+        <slot name="default"></slot>
+      </div>
+      <div id="modal-actions">
+        <slot name="actions"></slot>
+      </div>
       <button id="modal-close" @click="handleClose">
         <i class="fas fa-times"></i>
       </button>
@@ -54,6 +59,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/styles/_variables.scss';
+
+  h2 {
+    margin-bottom: 1rem;
+  }
   #modal-container {
     display: flex;
     justify-content: center;
@@ -68,6 +78,12 @@ export default {
     &.modal-size-md {
       #modal {
         width: 70%;
+        @media screen and (min-width: #{$md}) {
+          width: 800px;
+        }
+        @media screen and (max-width: #{$md}) {
+          width: 90%;
+        }
       }
     }
   }
@@ -76,6 +92,10 @@ export default {
     padding: 2rem;
     border-radius: 0.5rem;
     position: relative;
+  }
+  #modal-content {
+    max-height: 80vh;
+    overflow: auto;
   }
   #modal-close {
     position: absolute;
