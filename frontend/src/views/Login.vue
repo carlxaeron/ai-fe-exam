@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import authService from '@/services/authService';
+import apiService from '@/services/apiService';
 
 export default {
   name: 'LoginView',
@@ -31,14 +31,12 @@ export default {
   },
   methods: {
     login() {
-      authService.login(this.username, this.password)
+      apiService.login(this.username, this.password)
         .then(response => {
-          console.log(response)
+          console.log(response, 'response')
           this.$router.push({ name: 'Admin' })
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch(error => apiService.checkError(error))
     }
   }
 }

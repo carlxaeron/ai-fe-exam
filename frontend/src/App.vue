@@ -6,6 +6,7 @@
     <LayoutComponent v-else>
       <router-view />
     </LayoutComponent>
+    <NotificationComponent />
   </div>
 </template>
 
@@ -13,12 +14,14 @@
 import { mapActions, mapGetters } from 'vuex';
 import LayoutComponent from '@/components/Layout.vue';
 import AdminLayoutComponent from '@/components/admin/AdminLayout.vue';
+import NotificationComponent from '@/components/Notification.vue';
 
 export default {
   name: 'App',
   components: {
     LayoutComponent,
     AdminLayoutComponent,
+    NotificationComponent,
   },
   methods: {
     ...mapActions(['applyInitialTheme']),

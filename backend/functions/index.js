@@ -12,7 +12,7 @@ const app = require("express")();
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: "https://carlxaeron.github.io",
+  origin: ["https://carlxaeron.github.io", "http://localhost:8080"],
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
