@@ -1,17 +1,21 @@
 <template>
-  <div id="dashboard">
-    <AdminToolbar :title="`${type.toUpperCase()}'s Dashboard`">
-      <h3>For {{ type === 'writer' ? 'Edit' : 'Publish' }}</h3>
-      <h3>Published</h3>
+  <div id="media">
+    <AdminToolbar title="Media">
+      <template v-slot:right>
+        <button>Upload</button>
+      </template>
     </AdminToolbar>
+    <div id="media-content">
+      <h3>Media Content</h3>
+    </div>
   </div>
 </template>
 
 <script>
-  import AdminToolbar from '@/components/admin/AdminToolbar.vue';
+import AdminToolbar from '@/components/admin/AdminToolbar.vue';
 
   export default {
-    name: 'DashboardView',
+    name: 'MediaView',
     components: {
       AdminToolbar,
     },

@@ -9,6 +9,7 @@
         <slot></slot>
       </section>
     </div>
+    <AdminArticle />
   </main>
 </template>
 
@@ -16,12 +17,14 @@
   import AdminHeader from '@/components/admin/AdminHeader.vue';
   import AdminMenu from '@/components/admin/AdminMenu.vue';
   import { mapGetters } from 'vuex';
+  import AdminArticle from './AdminArticle.vue';
 
   export default {
     name: 'AdminLayout',
     components: {
       AdminHeader,
       AdminMenu,
+      AdminArticle,
     },
     mounted() {
       document.dispatchEvent(new Event('render-event'))
@@ -56,7 +59,7 @@
   }
   #content {
     flex: 1;
-    padding: 1rem;
+    padding: 2rem;
   }
   .dark-theme {
     @include dark-theme;

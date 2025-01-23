@@ -16,6 +16,24 @@ $secondary-color: $light-secondary-color;
 $background-color: $light-background-color;
 $text-color: $light-text-color;
 
+$red-1: #f44336;
+$red-2: #e57373;
+$red-3: #ef9a9a;
+$red-4: #ffcdd2;
+$red-5: #ffebee;
+
+$green-1: #4caf50;
+$green-2: #81c784;
+$green-3: #a5d6a7;
+$green-4: #c8e6c9;
+$green-5: #e8f5e9;
+
+$blue-1: #2196f3;
+$blue-2: #64b5f6;
+$blue-3: #90caf9;
+$blue-4: #bbdefb;
+$blue-5: #e3f2fd;
+
 // Mixin to apply light theme
 @mixin light-theme {
   $primary-color: $light-primary-color !global;

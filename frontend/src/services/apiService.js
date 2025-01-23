@@ -8,6 +8,10 @@ const apiService = {
   },
   checkError(error) {
     const response = error.response;
+    if (!response) {
+      store.commit('setNotification', { type: 'error', message: 'Network error. Please try again later.', show: true });
+      return;
+    }
     if (response.status === 400) {
       store.commit('setNotification', { type: 'error', message: error.response.data.errors[0].msg, show: true });
     } else if (response.status === 401) {

@@ -8,6 +8,10 @@ export default createStore({
       type: 'success',
       show: false,
     },
+    modal: {
+      show: false,
+      title: '',
+    },
     currentUser: null,
   },
   mutations: {
@@ -30,6 +34,9 @@ export default createStore({
     setCurrentUser(state, currentUser) {
       state.currentUser = currentUser;
     },
+    setModal(state, modal) {
+      state.modal = modal;
+    }
   },
   actions: {
     toggleTheme({ commit }) {
@@ -48,10 +55,17 @@ export default createStore({
     setCurrentUser({ commit }, currentUser) {
       commit('setCurrentUser', currentUser);
     },
+    setModal({ commit }, modal) {
+      commit('setModal', modal);
+    },
+    toggleModal({ commit, state }, modal) {
+      commit('setModal', { ...state.modal, show: !state.modal.show, ...modal });
+    }
   },
   getters: {
     isDarkTheme: (state) => state.isDarkTheme,
     notification: (state) => state.notification,
     getCurrentUser: (state) => state.currentUser,
+    getModal: (state) => state.modal,
   },
 });

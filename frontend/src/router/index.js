@@ -3,6 +3,7 @@ import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Dashboard from '../views/admin/Dashboard.vue';
 import store from '../store';
+import Media from '@/views/admin/Media.vue';
 
 // Import your views/components here
 
@@ -23,6 +24,12 @@ const routes = [
     component: Dashboard,
     meta: { type: 'admin' }
   },
+  {
+    path: '/admin/media',
+    name: 'Media',
+    component: Media,
+    meta: { type: 'admin' }
+  }
 ];
 
 const router = createRouter({
@@ -33,7 +40,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.type === 'admin') {
     const user = store.getters.getCurrentUser;
-    console.log(user);
     if (!user || user.status !== 'active') {
       store.commit('setNotification', { type: 'error', message: 'You are not authorized to access this page', show: true });
       next({ name: 'Login' });
