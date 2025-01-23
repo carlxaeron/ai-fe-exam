@@ -1,3 +1,4 @@
+import apiService from '@/services/apiService';
 import { createStore } from 'vuex';
 
 export default createStore({
@@ -15,6 +16,8 @@ export default createStore({
     currentUser: null,
     // data
     articles: [],
+    articlesForEdit: [],
+    articlesPublished: [],
     companies: [],
     users: [],
   },
@@ -35,12 +38,24 @@ export default createStore({
         }, 5000);
       }
     },
-    setCurrentUser(state, currentUser) {
-      state.currentUser = currentUser;
-    },
     setModal(state, modal) {
       state.modal = modal;
     },
+    // user
+    setCurrentUser(state, currentUser) {
+      state.currentUser = currentUser;
+    },
+    // articles
+    setArticles(state, articles) {
+      state.articles = articles;
+    },
+    setArticlesForEdit(state, articles) {
+      state.articlesForEdit = articles;
+    },
+    setArticlesPublished(state, articles) {
+      state.articlesPublished = articles;
+    },
+    // companies
     setCompanies(state, companies) {
       state.companies = companies;
     }
@@ -68,8 +83,55 @@ export default createStore({
     toggleModal({ commit, state }, modal) {
       commit('setModal', { ...state.modal, show: !state.modal.show, ...modal });
     },
+    // articles
+    setArticles({ commit }, articles) {
+      commit('setArticles', articles);
+    },
+    setArticlesForEdit({ commit }, articles) {
+      commit('setArticlesForEdit', articles);
+    },
+    setArticlesPublished({ commit }, articles) {
+      commit('setArticlesPublished', articles);
+    },
+    fetchArticles({ commit }) {
+      apiService.getArticles()
+        .then((response) => {
+          commit('setArticles', response.data);
+        })
+        .catch((error) => {
+          apiService.handleError(error);
+        });
+    },
+    fetchArticlesForEdit({ commit }) {
+      apiService.getArticles({ page: 0, limit: 2, forEdit: true })
+        .then((response) => {
+          commit('setArticlesForEdit', response.data);
+        })
+        .catch((error) => {
+          apiService.handleError(error);
+        });
+    },
+    fetchArticlesPublished({ commit }) {
+      apiService.getArticles({ page: 0, limit: 2, published: true })
+        .then((response) => {
+          commit('setArticlesPublished', response.data);
+        })
+        .catch((error) => {
+          apiService.handleError(error);
+        });
+    },
+    // companies
     setCompanies({ commit }, companies) {
       commit('setCompanies', companies);
+    },
+    fetchCompanies({ commit }) {
+      apiService.getCompanies()
+        .then((response) => {
+          commit('setCompanies', response.data);
+        })
+        .catch((error) => {
+          apiService.handleError(error);
+        });
     },
   },
   getters: {

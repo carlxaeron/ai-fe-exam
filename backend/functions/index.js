@@ -19,7 +19,7 @@ app.use(cors(corsOptions));
 
 // Middleware to check for X-Username header
 const checkUsernameHeader = (req, res, next) => {
-  if (!req.headers["x-usernames"]) {
+  if (!req.headers["x-username"]) {
     return res.status(400).json({error: "X-Username header is required"});
   }
   next();
@@ -44,11 +44,17 @@ app.post(
       }
 
       const {date} = req.body;
-      if (!date) {
+      if (date) {
+        const currentDate = new Date();
+        const [year, month, day] = date.split("-");
+        req.body.date = new Date(year, month - 1, day, currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
+      } else {
         req.body.date = new Date();
       }
 
       const article = req.body;
+      article.writer = req.headers["x-username"];
+      article.status = "For Edit";
       await db.collection("articles").add(article);
       res.status(201).send();
     },
@@ -81,6 +87,79 @@ app.put(
       res.status(200).send();
     },
 );
+
+app.get("/articles", async (req, res) => {
+  try {
+    let query = db.collection("articles").orderBy("date", "desc");
+
+    if (req.query.page && req.query.limit) {
+      const page = parseInt(req.query.page, 10);
+      const limit = parseInt(req.query.limit, 10);
+
+      const snapshot = await query.limit((page + 1) * limit).get();
+      const startAfter = snapshot.docs[page * limit - 1];
+
+      if (startAfter) {
+        query = query.startAfter(startAfter).limit(limit);
+      } else {
+        query = query.limit(limit);
+      }
+    } else if (req.query.limit) {
+      const limit = parseInt(req.query.limit, 10);
+      query = query.limit(limit);
+    }
+
+    if (req.query.forEdit) {
+      query = query.where("status", "==", "For Edit");
+    } else if (req.query.published) {
+      query = query.where("status", "==", "Published");
+    }
+
+    const snapshot = await query.get();
+    const articles = await Promise.all(snapshot.docs.map(async (doc) => {
+      const ret = {id: doc.id, ...doc.data()};
+      ret.date = ret.date.toDate();
+
+      if (ret.writer) {
+        const writerSnapshot = await db.collection("users").where("username", "==", ret.writer).get();
+        if (!writerSnapshot.empty) {
+          const writerDoc = writerSnapshot.docs[0];
+          ret.writer = {
+            id: writerDoc.id,
+            firstName: writerDoc.data().firstName,
+            lastName: writerDoc.data().lastName,
+          };
+        } else {
+          ret.writer = null;
+        }
+      } else {
+        ret.writer = null;
+      }
+
+      if (ret.editor) {
+        const editorSnapshot = await db.collection("users").where("username", "==", ret.editor).get();
+        if (!editorSnapshot.empty) {
+          const editorDoc = editorSnapshot.docs[0];
+          ret.editor = {
+            id: editorDoc.id,
+            firstName: editorDoc.data().firstName,
+            lastName: editorDoc.data().lastName,
+          };
+        } else {
+          ret.editor = null;
+        }
+      } else {
+        ret.editor = null;
+      }
+
+      return ret;
+    }));
+
+    res.json(articles);
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+});
 
 // Function to delete an article
 app.delete("/articles/:id", async (req, res) => {

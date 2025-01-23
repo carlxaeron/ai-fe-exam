@@ -77,16 +77,7 @@ export default {
   mounted() {
     document.dispatchEvent(new Event('render-event'))
     
-    apiService.getCompanies()
-      .then((response) => {
-        console.log(response);
-        if(response.data) {
-          this.setCompanies(response.data);
-        }
-      })
-      .catch((error) => {
-        apiService.handleError(error);
-      });
+    this.$store.dispatch('fetchCompanies')
   },
   methods: {
     ...mapActions(['toggleModal', 'setCompanies']),

@@ -11,6 +11,30 @@ const apiService = {
   createArticle(article) {
     return axiosInstance({formData: false}).post(helper.getBaseUrl('articles'), article);
   },
+  getArticles(config = {}) {
+    if (config.id) {
+      return axiosInstance().get(helper.getBaseUrl('articles') + '/' + config.id);
+    }
+
+    const getParams = (config) => {
+      let params = '';
+      if (config.page) {
+        params += '?page=' + config.page;
+      }
+      if (config.limit) {
+        params += params ? '&limit=' + config.limit : '?limit=' + config.limit;
+      }
+      if (config.forEdit) {
+        params += params ? '&forEdit=true' : '?forEdit=true';
+      }
+      if (config.published) {
+        params += params ? '&published=true' : '?published=true';
+      }
+      return params;
+    };
+
+    return axiosInstance().get(helper.getBaseUrl('articles') + getParams(config));
+  },
   // companies
   getCompanies() {
     return axiosInstance().get(helper.getBaseUrl('companies'));
