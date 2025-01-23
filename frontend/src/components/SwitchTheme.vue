@@ -1,6 +1,8 @@
 <template>
   <div class="switch-theme">
-    <button @click="toggleTheme">Toggle Theme</button>
+    <button @click="toggleTheme">
+      <i class="fas fa-adjust"></i>
+    </button>
   </div>
 </template>
 
@@ -14,3 +16,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    i {
+      font-size: 1rem;
+      color: var(--primary-color);
+    }
+  }
+</style>

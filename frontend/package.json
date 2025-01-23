@@ -12,6 +12,7 @@
     "deploy": "gh-pages -d dist/gh"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "axios": "^1.7.9",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",

@@ -33,7 +33,6 @@ export default createStore({
   },
   actions: {
     toggleTheme({ commit }) {
-      console.log('toggle theme');
       commit('toggleTheme');
     },
     applyInitialTheme({ commit }) {
