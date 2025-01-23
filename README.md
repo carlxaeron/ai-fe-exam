@@ -1,5 +1,5 @@
 # ai-fe-exam
-Archintel Developer Exam - CARL LOUIS MANUEL
+Developer Exam - CARL LOUIS MANUEL
 
 ## Specifications
 - Develop a Writer/Editor Dashboard Site that has the ability to create, edit, and publish an article related to a company. 
