@@ -1,13 +1,16 @@
 <template>
-  <AdminLayoutComponent v-if="routeMeta.type === 'admin'">
-    <router-view />
-  </AdminLayoutComponent>
-  <LayoutComponent v-else>
-    <router-view />
-  </LayoutComponent>
+  <div :class="themeClass">
+    <AdminLayoutComponent v-if="routeMeta.type === 'admin'">
+      <router-view />
+    </AdminLayoutComponent>
+    <LayoutComponent v-else>
+      <router-view />
+    </LayoutComponent>
+  </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import LayoutComponent from '@/components/Layout.vue';
 import AdminLayoutComponent from '@/components/admin/AdminLayout.vue';
 
@@ -17,10 +20,17 @@ export default {
     LayoutComponent,
     AdminLayoutComponent,
   },
+  methods: {
+    ...mapActions(['applyInitialTheme']),
+  },
   computed: {
+    ...mapGetters(['isDarkTheme']),
     routeMeta() {
       return this.$route.meta;
-    }
+    },
+    themeClass() {
+      return this.isDarkTheme ? 'dark-theme' : 'light-theme';
+    },
   },
   watch: {
     $route(to) {
@@ -29,7 +39,21 @@ export default {
     }
   },
   mounted() {
-    document.dispatchEvent(new Event('render-event'))
+    document.dispatchEvent(new Event('render-event'));
+    this.applyInitialTheme();
   }
 }
 </script>
+
+<style lang="scss">
+@import '@/assets/styles/global.scss';
+@import '@/assets/styles/_variables.scss';
+
+.light-theme {
+  @include light-theme;
+}
+
+.dark-theme {
+  @include dark-theme;
+}
+</style>

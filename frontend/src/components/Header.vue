@@ -18,12 +18,18 @@
         </ul>
       </div>
     </nav>
+    <SwitchTheme />
   </header>
 </template>
 
 <script>
+import SwitchTheme from './SwitchTheme.vue';
+
 export default {
-  name: 'HeaderComponent'
+  name: 'HeaderComponent',
+  components: {
+    SwitchTheme,
+  },
 }
 </script>
 
