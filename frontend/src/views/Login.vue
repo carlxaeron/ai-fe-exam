@@ -31,8 +31,6 @@ export default {
   },
   methods: {
     login() {
-      console.log('Username:', this.username)
-      console.log('Password:', this.password)
       authService.login(this.username, this.password)
         .then(response => {
           console.log(response)

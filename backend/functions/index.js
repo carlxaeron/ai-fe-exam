@@ -3,12 +3,19 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const {body, validationResult} = require("express-validator");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 admin.initializeApp();
 const db = admin.firestore();
 
 const app = require("express")();
 app.use(bodyParser.json());
+
+const corsOptions = {
+  origin: "https://carlxaeron.github.io",
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 // Function to create a new article
 app.post(
