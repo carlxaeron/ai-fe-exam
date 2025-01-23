@@ -153,7 +153,11 @@ app.post(
         return res.status(401).send();
       }
 
-      res.status(200).send();
+      // exlude password from response
+      const response = snapshot.docs[0].data();
+      delete response.password;
+
+      res.json(response);
     },
 );
 

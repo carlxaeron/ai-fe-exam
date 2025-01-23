@@ -7,12 +7,12 @@ const apiService = {
     return axiosInstance.post(helper.getBaseUrl('login'), { username, password });
   },
   checkError(error) {
-    console.log(error);
-    if (error.response) {
-      console.log(123);
+    const response = error.response;
+    if (response.status === 400) {
       store.commit('setNotification', { type: 'error', message: error.response.data.errors[0].msg, show: true });
+    } else if (response.status === 401) {
+      store.commit('setNotification', { type: 'error', message: 'Invalid credentials', show: true });
     }
-    console.log(store.getters.notification);
   },
 };
 

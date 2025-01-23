@@ -27,9 +27,13 @@ export default createStore({
         }, 5000);
       }
     },
+    setCurrentUser(state, currentUser) {
+      state.currentUser = currentUser;
+    },
   },
   actions: {
     toggleTheme({ commit }) {
+      console.log('toggle theme');
       commit('toggleTheme');
     },
     applyInitialTheme({ commit }) {
@@ -41,10 +45,14 @@ export default createStore({
     },
     clearNotification({ commit }) {
       commit('setNotification', { message: '', type: 'success', show: false });
-    }
+    },
+    setCurrentUser({ commit }, currentUser) {
+      commit('setCurrentUser', currentUser);
+    },
   },
   getters: {
     isDarkTheme: (state) => state.isDarkTheme,
     notification: (state) => state.notification,
+    getCurrentUser: (state) => state.currentUser,
   },
 });

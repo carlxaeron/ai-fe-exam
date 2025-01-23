@@ -33,8 +33,10 @@ export default {
     login() {
       apiService.login(this.username, this.password)
         .then(response => {
-          console.log(response, 'response')
-          this.$router.push({ name: 'Admin' })
+          if (response.status === 200) {
+            this.$store.commit('setCurrentUser', response.data);
+            this.$router.push({ name: 'Admin' })
+          }
         })
         .catch(error => apiService.checkError(error))
     }

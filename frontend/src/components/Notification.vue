@@ -1,5 +1,5 @@
 <template>
-  <div id="notification">
+  <div id="notification" :class="`notification-${show ? 'on' : 'off'}`">
     <div v-if="show" :class="['notification', type]" @animationend="handleAnimationEnd">
       {{ message }}
     </div>
@@ -35,6 +35,9 @@ export default {
   padding: 1rem;
   width: 100%;
   color: red;
+  &.notification-off {
+    display: none;
+  }
 }
 
 .notification {
