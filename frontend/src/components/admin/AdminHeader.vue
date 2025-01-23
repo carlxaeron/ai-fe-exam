@@ -1,9 +1,6 @@
 <template>
   <header id="admin-header">
     <h1>Admin Panel</h1>
-    <nav>
-      <router-link :to="{ name: 'Admin' }">Dashboard</router-link>
-    </nav>
     <SwitchTheme />
   </header>
 </template>

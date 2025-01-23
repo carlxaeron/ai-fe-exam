@@ -127,4 +127,27 @@ app.get("/companies", async (req, res) => {
   res.json(companies);
 });
 
+// Function to login
+app.post(
+    "/login",
+    [
+      body("username").notEmpty().withMessage("Username is required"),
+      body("password").isLength({min: 8}).withMessage("Password must be at least 6 characters long"),
+    ],
+    async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array()});
+      }
+
+      const {username, password} = req.body;
+      const snapshot = await db.collection("users").where("username", "==", username).where("password", "==", password).get();
+      if (snapshot.empty) {
+        return res.status(401).send();
+      }
+
+      res.status(200).send();
+    },
+);
+
 exports.api = functions.https.onRequest(app);

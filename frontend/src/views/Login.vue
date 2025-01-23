@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import authService from '@/services/authService';
+
 export default {
   name: 'LoginView',
   components: {
@@ -31,6 +33,14 @@ export default {
     login() {
       console.log('Username:', this.username)
       console.log('Password:', this.password)
+      authService.login(this.username, this.password)
+        .then(response => {
+          console.log(response)
+          this.$router.push({ name: 'Admin' })
+        })
+        .catch(error => {
+          console.error(error)
+        })
     }
   }
 }

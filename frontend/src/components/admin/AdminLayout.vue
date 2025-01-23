@@ -56,13 +56,16 @@
   }
   #content {
     flex: 1;
-    padding: 10px;
+    padding: 1rem;
   }
   .dark-theme {
     @include dark-theme;
     #content-menu {
       background-color: darken($background-color, 10%);
       border-right-color: darken($background-color, 20%);
+    }
+    #content {
+      background-color: darken($background-color, 5%);
     }
   }
 </style>

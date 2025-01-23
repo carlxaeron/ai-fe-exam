@@ -1,13 +1,10 @@
 <template>
   <div id="dashboard">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App - Admin"/> -->
+    hello
   </div>
 </template>
 
 <script>
-  // import HelloWorld from '../../components/HelloWorld.vue'
-
   export default {
     name: 'DashboardView',
     components: {
