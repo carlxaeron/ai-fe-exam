@@ -1,5 +1,5 @@
 <template>
-  <div id="admin">
+  <div id="dashboard">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App - Admin"/> -->
   </div>
@@ -9,7 +9,7 @@
   // import HelloWorld from '../../components/HelloWorld.vue'
 
   export default {
-    name: 'AdminHomeView',
+    name: 'DashboardView',
     components: {
       // HelloWorld
     },

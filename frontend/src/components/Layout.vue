@@ -1,17 +1,20 @@
 <template>
-  <main id="app">
+  <main id="public-app">
     <Header />
-    <router-view />
+    <slot></slot>
+    <Footer />
   </main>
 </template>
 
 <script>
-import Header from './Header.vue'
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 
 export default {
   name: 'LayoutComponent',
   components: {
-    Header
+    Header,
+    Footer,
   },
   mounted() {
     document.dispatchEvent(new Event('render-event'))
@@ -20,7 +23,7 @@ export default {
 </script>
 
 <style>
-#app {
+#public-app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

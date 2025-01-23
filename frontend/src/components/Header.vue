@@ -1,15 +1,19 @@
 <template>
   <header>
+    <router-link :to="{name: 'Home'}">
+      <img src="https://placehold.co/250x150" alt="Logo" />
+    </router-link>
     <nav>
       <router-link :to="{name: 'Home'}">Home</router-link>
-      <router-link :to="{name: 'AdminHome'}">Admin</router-link>
+      <router-link :to="{name: 'Login'}">Login</router-link>
+      <router-link :to="{name: 'Admin'}">Admin</router-link>
       <div id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
             <router-link :to="{name: 'Home'}" class="nav-link">Home</router-link> |
           </li>
           <li class="nav-item">
-            <router-link :to="{name: 'AdminHome'}" class="nav-link">Admin</router-link>
+            <router-link :to="{name: 'Login'}" class="nav-link">Login</router-link>
           </li>
         </ul>
       </div>
