@@ -1,10 +1,6 @@
 <template>
   <div id="media">
-    <AdminToolbar title="Media">
-      <template v-slot:right>
-        <button>Upload</button>
-      </template>
-    </AdminToolbar>
+    <AdminToolbar title="Media" />
     <div id="media-content">
       <h3>Media Content</h3>
     </div>

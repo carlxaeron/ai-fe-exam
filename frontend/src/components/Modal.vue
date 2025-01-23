@@ -72,7 +72,7 @@ export default {
     }
   }
   #modal {
-    background: white;
+    background: var(--secondary-color);
     padding: 2rem;
     border-radius: 0.5rem;
     position: relative;
@@ -83,7 +83,7 @@ export default {
     right: 1rem;
     background: none;
     border: none;
-    color: black;
+    color: var(--primary-color);
     font-size: 1.5rem;
     cursor: pointer;
   }
