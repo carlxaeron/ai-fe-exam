@@ -3,37 +3,24 @@
     <Modal title="Create New Article">
       <template v-slot:default>
         <form @submit.prevent="submitForm">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" v-model="article.title" required>
-          </div>
-          <div class="form-group">
-            <label for="content">Content</label>
-            <QuillEditor v-model:content="article.content" content-type="html" :options="editorOptions" />
-          </div>
-          <div class="form-group">
-            <label for="link">Link</label>
-            <input type="text" id="link" name="link" v-model="article.link" required>
-          </div>
-          <div class="form-group">
-            <label for="image">Image</label>
-            <input type="file" id="image" name="image">
-          </div>
-          <div class="form-group">
-            <label for="date">Date</label>
-            <input type="date" id="date" name="date" v-model="article.date">
-          </div>
-          <div class="form-group">
-            <label for="company">Company</label>
-            <select id="company" name="company" v-model="article.company" required>
-              <option value="">Select Company</option>
-              <option v-for="company in companies" :key="company.id" :value="company.id">{{ company.name }}</option>
-            </select>
-          </div>
+          <FormGroup id="title" label="Title" v-model="article.title" :value="article.title" :required="true"/>
+          <FormGroup id="content" label="Content" :required="true" :value="article.content">
+            <template v-slot:etc>
+              <QuillEditor v-model:content="article.content" content-type="html" :options="editorOptions" />
+            </template>
+          </FormGroup>
+          <FormGroup id="link" label="Link" v-model="article.link" :value="article.link" :componen-type="link" :required="true" />
+          <FormGroup id="image" label="Image" v-model="article.image" :required="true" :value="article.image" :component-type="'input'" :component-props="{ type: 'file', accept: 'image/*' }" />
+          <FormGroup id="date" label="Date" v-model="article.date" :value="article.date" :component-type="'input'" :component-props="{ type: 'date' }" :required="true" />
+          <FormGroup id="company" label="Company" v-model="article.company" :value="article.company" :component-type="'select'" :required="true">
+            <option value="">Select Company</option>
+            <option v-for="company in companies" :key="company.id" :value="company.id">{{ company.name }}</option>
+          </FormGroup>
+          <button type="submit" style="display: none;" ref="submitBtn"></button>
         </form>
       </template>
       <template v-slot:actions>
-        <Button @click="submitForm">Create</Button>
+        <Button @click="handleCreate">Create</Button>
       </template>
     </Modal>
     <button title="Create Article" id="create-admin-article-btn" @click="handleCreateArticle">
@@ -46,9 +33,10 @@
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import Modal from '../Modal.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import apiService from '@/services/apiService';
 import Button from '../Button.vue';
+import FormGroup from '../FormGroup.vue';
 
 export default {
   name: 'AdminArticle',
@@ -56,11 +44,13 @@ export default {
     Modal,
     QuillEditor,
     Button,
+    FormGroup,
   },
   data() {
     return {
       editorOptions: {
         theme: 'snow',
+        required: true,
       },
       article: {
         title: '',
@@ -84,7 +74,23 @@ export default {
       this.toggleModal();
     },
     submitForm() {
-      console.log('submit form');
+      let withError = false;
+      Object.keys(this.article).forEach((key) => {
+        if (!this.article[key]) {
+          withError = key;
+        }
+      });
+      
+      if (withError) {
+        return this.$store.commit('setNotification', { type: 'error', message: withError.toUpperCase() + ' field are required', show: true });
+      }
+
+      // valid link using regex pattern with starts with http or https protocol and ends with a valid domain name
+      const linkPattern = /^(http|https):\/\/[a-zA-Z0-9-.]+\.[a-zA-Z]{2,}(\/\S*)?$/;
+      if (!linkPattern.test(this.article.link)) {
+        return this.$store.commit('setNotification', { type: 'error', message: 'Must be a valid link', show: true });
+      }
+
       apiService.createArticle(this.article)
         .then((response) => {
           console.log(response);
@@ -93,10 +99,17 @@ export default {
           apiService.handleError(error);
         });
     },
+    handleCreate() {
+      this.$refs.submitBtn.click();
+    },
   },
   computed: {
+    ...mapGetters(['getModal']),
     companies() {
       return this.$store.getters.getCompanies;
+    },
+    modal() {
+      return this.getModal;
     },
   },
 }

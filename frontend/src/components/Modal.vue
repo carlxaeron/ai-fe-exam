@@ -107,4 +107,9 @@ export default {
     font-size: 1.5rem;
     cursor: pointer;
   }
+  #modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
 </style>

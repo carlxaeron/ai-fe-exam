@@ -3,15 +3,9 @@
     <h2>Login</h2>
     <div class="container" id="login-container">
       <form @submit.prevent="login">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" v-model="username" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" v-model="password" class="form-control" required>
-        </div>
-        <Button @click="login">Login</Button>
+        <FormGroup id="username" label="Username" v-model="username" :value="username" :required="true" />
+        <FormGroup id="password" label="Password" v-model="password" :value="password" :component-type="'input'" :component-props="{ type: 'password', minlength: 8 }" :required="true" />
+        <Button type="submit">Login</Button>
       </form>
     </div>
   </section>
@@ -20,11 +14,13 @@
 <script>
 import apiService from '@/services/apiService';
 import Button from '@/components/Button.vue';
+import FormGroup from '@/components/FormGroup.vue';
 
 export default {
   name: 'LoginView',
   components: {
-    Button
+    Button,
+    FormGroup,
   },
   data() {
     return {

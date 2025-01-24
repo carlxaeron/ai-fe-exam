@@ -23,6 +23,20 @@ a {
   }
 }
 
+input {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid lighten(black, 70%);
+}
+
+.dark-theme {
+  input, select {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: 1px solid darken(white, 70%);
+  }
+}
+
 /* Utility Classes */
 .container {
   max-width: 1200px;
