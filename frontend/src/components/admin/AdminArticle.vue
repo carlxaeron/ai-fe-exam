@@ -1,6 +1,6 @@
 <template>
   <div id="admin-article">
-    <Modal v-if="modal.show" title="Create New Article" @onClose="resetForm">
+    <Modal :title="getTitle()" @onClose="close">
       <template v-slot:default>
         <form @submit.prevent="submitForm">
           <FormGroup id="title" label="Title" v-model="article.title" :value="article.title" :required="true"/>
@@ -30,9 +30,6 @@
         <Button @click="handleCreate">Create</Button>
       </template>
     </Modal>
-    <button title="Create Article" id="create-admin-article-btn" @click="handleCreateArticle">
-      <i class="fas fa-plus"></i>
-    </button>
   </div>
 </template>
 
@@ -80,11 +77,19 @@ export default {
     document.dispatchEvent(new Event('render-event'));
     
     this.$store.dispatch('fetchCompanies');
+
+    if (this.getArticle) {
+      this.article = this.getArticle;
+    }
   },
   methods: {
-    ...mapActions(['toggleModal', 'setCompanies']),
-    handleCreateArticle() {
-      this.toggleModal();
+    ...mapActions(['setCompanies', 'getArticle']),
+    getTitle() {
+      return this.isEdit ? 'Edit "' + this.getArticle.title + '"' : 'Create Article';
+    },
+    close() {
+      this.resetForm();
+      this.$store.dispatch('showAdminArticle', false);
     },
     resetForm() {
       this.article = {
@@ -95,6 +100,7 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         image: '',
       };
+      this.$store.dispatch('setArticle', null);
     },
     handleImage(event) {
       this.article.image = '';
@@ -208,12 +214,15 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getModal']),
+    ...mapGetters(['getModal', 'getArticle']),
     companies() {
       return this.$store.getters.getCompanies;
     },
     modal() {
       return this.getModal;
+    },
+    isEdit() {
+      return this.getArticle;
     },
   },
 }
@@ -222,18 +231,6 @@ export default {
 <style lang="scss" scoped>
   @import "@/assets/styles/_variables.scss";
 
-  #create-admin-article-btn {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    background: $green-1;
-    border: none;
-    color: white;
-    padding: 1.5rem;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
   #article-img {
     margin-top: 1rem;
     img {

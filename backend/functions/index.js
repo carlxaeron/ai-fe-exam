@@ -4,6 +4,7 @@ const admin = require("firebase-admin");
 const {body, validationResult} = require("express-validator");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const {FOR_EDIT, PUBLISHED} = require("../utils");
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -54,7 +55,7 @@ app.post(
 
       const article = req.body;
       article.writer = req.headers["x-username"];
-      article.status = "For Edit";
+      article.status = FOR_EDIT;
       await db.collection("articles").add(article);
       res.status(201).send();
     },
@@ -70,7 +71,7 @@ app.put(
       body("link").optional().isURL().withMessage("Link must be a valid URL"),
       body("date").optional().notEmpty().withMessage("Date cannot be empty"),
       body("content").optional().notEmpty().withMessage("Content cannot be empty"),
-      body("status").optional().isIn(["For Edit", "Published"]).withMessage("Status must be either \"For Edit\" or \"Published\""),
+      body("status").optional().isIn([FOR_EDIT, PUBLISHED]).withMessage("Status must be either \"For Edit\" or \"Published\""),
       body("writer").optional().notEmpty().withMessage("Writer cannot be empty"),
       body("editor").optional().notEmpty().withMessage("Editor cannot be empty"),
       body("company").optional().notEmpty().withMessage("Company cannot be empty"),
@@ -109,8 +110,12 @@ app.get("/articles", async (req, res) => {
       query = query.limit(limit);
     }
 
+    if (!req.headers["x-username"]) {
+      return res.status(400).json({error: "X-Username header is required"});
+    }
+
     if (req.query.forEdit) {
-      query = query.where("status", "==", "For Edit");
+      query = query.where("status", "==", FOR_EDIT);
     } else if (req.query.published) {
       query = query.where("status", "==", "Published");
     }

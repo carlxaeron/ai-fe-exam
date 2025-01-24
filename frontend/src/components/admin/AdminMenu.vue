@@ -8,22 +8,14 @@
         <i class="fas fa-images"></i>
         Media</router-link>
     </nav>
-    <div v-if="currentUser?.type === 'editor'">
+    <template v-if="currentUser?.type === 'editor'">
       <div id="menu-parent">Users</div>
       <nav id="menu-child">
         <router-link :to="{ name: 'Admin' }">
           <i class="fas fa-users"></i>
           Manage Users</router-link>
       </nav>
-    </div>
-    <div v-if="currentUser?.type === 'editor'">
-      <div id="menu-parent">Users</div>
-      <nav id="menu-child">
-        <router-link :to="{ name: 'Admin' }">
-          <i class="fas fa-users"></i>
-          Manage Users</router-link>
-      </nav>
-    </div>
+    </template>
     <div id="menu-parent"><hr/></div>
     <nav id="menu-child">
       <router-link to="/settings" active-class="active">

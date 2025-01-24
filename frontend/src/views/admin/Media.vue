@@ -3,7 +3,7 @@
     <AdminToolbar title="Media" />
     <div id="media-content">
       <h3>Media Content</h3>
-      <ArticleList :data="articles" :config="{ withStatus: true }" :loading="articlesLoading" />
+      <ArticleList :data="articles" :config="{ withStatus: true, withAction: true }" :loading="articlesLoading" />
     </div>
   </div>
 </template>

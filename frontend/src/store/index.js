@@ -15,6 +15,7 @@ export default createStore({
     },
     currentUser: null,
     // data
+    article: null,
     articles: [],
     articlesLoading: false,
     articlesForEdit: [],
@@ -67,6 +68,12 @@ export default createStore({
     setArticlesPublishedLoading(state, loading) {
       state.articlesPublishedLoading = loading;
     },
+    setArticle(state, article) {
+      state.article = article;
+    },
+    showAdminArticle(state, bool) {
+      state.showAdminArticle = bool;
+    },
     // companies
     setCompanies(state, companies) {
       state.companies = companies;
@@ -101,6 +108,13 @@ export default createStore({
     },
     setArticles({ commit }, articles) {
       commit('setArticles', articles);
+    },
+    setArticle({ commit }, article) {
+      commit('setArticle', article);
+      if (article) {
+        commit('setModal', { show: true, title: 'Edit Article' });
+        commit('showAdminArticle', true);
+      }
     },
     setArticlesForEditLoading({ commit }, loading) {
       commit('setArticlesForEditLoading', loading);
@@ -155,6 +169,10 @@ export default createStore({
       dispatch('fetchArticlesForEdit');
       dispatch('fetchArticlesPublished');
     },
+    showAdminArticle({ commit }, bool) {
+      commit('showAdminArticle', bool);
+      commit('setModal', { show: bool });
+    },
     // companies
     setCompanies({ commit }, companies) {
       commit('setCompanies', companies);
@@ -179,6 +197,8 @@ export default createStore({
     getArticles: (state) => state.articles,
     getArticlesForEdit: (state) => state.articlesForEdit,
     getArticlesPublished: (state) => state.articlesPublished,
+    getArticle: (state) => state.article,
+    isShowAdminArticle: (state) => state.showAdminArticle,
     // loading
     articlesLoading: (state) => state.articlesLoading,
     articlesForEditLoading: (state) => state.articlesForEditLoading,

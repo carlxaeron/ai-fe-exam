@@ -9,7 +9,10 @@
         <slot></slot>
       </section>
     </div>
-    <AdminArticle />
+    <AdminArticle v-if="isShowAdminArticle" />
+    <button v-if="checkCreateBtn" title="Create Article" id="create-admin-article-btn" @click="handleCreateArticle">
+      <i class="fas fa-plus"></i>
+    </button>
   </main>
 </template>
 
@@ -18,6 +21,7 @@
   import AdminMenu from '@/components/admin/AdminMenu.vue';
   import { mapGetters } from 'vuex';
   import AdminArticle from './AdminArticle.vue';
+import { WRITER } from '@/utils/helper';
 
   export default {
     name: 'AdminLayout',
@@ -30,14 +34,20 @@
       document.dispatchEvent(new Event('render-event'))
     },
     computed: {
-      ...mapGetters(['isDarkTheme']),
+      ...mapGetters(['isDarkTheme', 'isShowAdminArticle']),
     },
     methods: {
       getClass() {
         return {
           'dark-theme': this.isDarkTheme,
         }
-      }
+      },
+      handleCreateArticle() {
+        this.$store.dispatch('showAdminArticle', true);
+      },
+      checkCreateBtn() {
+        return this.$store.getters.getCurrentUser.type === WRITER;
+      },
     }
   }
 </script>
@@ -70,5 +80,17 @@
     #content {
       background-color: darken($background-color, 5%);
     }
+  }
+  #create-admin-article-btn {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: $green-1;
+    border: none;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
   }
 </style>

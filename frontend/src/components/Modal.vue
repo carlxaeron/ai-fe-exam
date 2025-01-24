@@ -1,5 +1,5 @@
 <template>
-  <div v-show="isShow" id="modal-container" :class="`modal-appear modal-size-${size}`">
+  <div v-if="isShow" id="modal-container" :class="`modal-appear modal-size-${size}`">
     <div id="modal">
       <h2>{{ title }}</h2>
       <div id="modal-content">
@@ -36,7 +36,7 @@ export default {
   computed: {
     ...mapGetters(['getModal']),
     isShow() {
-      return this.show || this.getModal.show;
+      return this.getModal.show;
     },
   },
   components: {
@@ -84,13 +84,21 @@ export default {
         @media screen and (min-width: #{$md}) {
           width: 800px;
         }
-        @media screen and (max-width: #{$md}) {
-          width: 90%;
-        }
       }
     }
     &.modal-appear {
       animation: modal-appear 0.3s ease;
+    }
+    @media screen and (max-width: #{$md}) {
+      #modal {
+        width: 90% !important;
+      }
+    }
+    @media screen and (max-width: #{$sm}) {
+      #modal {
+        width: 100% !important;
+        height: 100% !important;
+      }
     }
   }
   @keyframes modal-appear {
