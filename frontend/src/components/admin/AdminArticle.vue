@@ -1,6 +1,6 @@
 <template>
   <div id="admin-article">
-    <Modal title="Create New Article">
+    <Modal title="Create New Article" @onClose="resetForm">
       <template v-slot:default>
         <form @submit.prevent="submitForm">
           <FormGroup id="title" label="Title" v-model="article.title" :value="article.title" :required="true"/>
@@ -57,21 +57,31 @@ export default {
         link: '',
         content: '',
         company: '',
-        date: '',
+        date: new Date().toISOString().substr(0, 10),
         image: '',
       },
       content: '',
     }
   },
   mounted() {
-    document.dispatchEvent(new Event('render-event'))
+    document.dispatchEvent(new Event('render-event'));
     
-    this.$store.dispatch('fetchCompanies')
+    this.$store.dispatch('fetchCompanies');
   },
   methods: {
     ...mapActions(['toggleModal', 'setCompanies']),
     handleCreateArticle() {
       this.toggleModal();
+    },
+    resetForm() {
+      this.article = {
+        title: '',
+        link: '',
+        content: '',
+        company: '',
+        date: new Date().toISOString().substr(0, 10),
+        image: '',
+      };
     },
     submitForm() {
       let withError = false;

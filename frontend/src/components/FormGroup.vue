@@ -7,6 +7,7 @@
       :id="id"
       :required="required"
       v-bind="componentProps"
+      :value="value"
       @focus="touched = true"
       @blur="touched = true"
       @input="handleInput"
@@ -61,10 +62,14 @@ export default {
   },
   methods: {
     handleInput(event) {
-      this.$emit('update:modelValue', event.target ? event.target.value : event);
-      if (this.required && this.touched && this.value) {
+      const value = event.target ? event.target.value : event;
+      this.$emit('update:modelValue', value);
+      this.validate(value);
+    },
+    validate(value) {
+      if (this.required && this.touched && value) {
         this.valid = true;
-      } else if (this.required && this.touched && !this.value) {
+      } else if (this.required && this.touched && !value) {
         this.valid = false;
       }
     },
@@ -73,14 +78,13 @@ export default {
     value: {
       immediate: true,
       handler(value) {
-        if (this.required && this.touched && value) {
-          this.valid = true;
-        } else if (this.required && this.touched && !value) {
-          this.valid = false;
-        }
+        this.validate(value);
       },
     },
-  }
+  },
+  mounted() {
+    document.dispatchEvent(new Event('render-event'));
+  },
 };
 </script>
 

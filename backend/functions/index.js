@@ -30,10 +30,10 @@ app.post(
     "/articles",
     checkUsernameHeader,
     [
-      // body("image").notEmpty().withMessage("Image is required"),
+      body("image").notEmpty().withMessage("Image is required"),
       body("title").notEmpty().withMessage("Title is required"),
-      // body("link").isURL().withMessage("Link must be a valid URL"),
-      // body("date").notEmpty().withMessage("Date is required"),
+      body("link").isURL().withMessage("Link must be a valid URL"),
+      body("date").notEmpty().withMessage("Date is required"),
       body("content").notEmpty().withMessage("Content is required"),
       body("company").notEmpty().withMessage("Company is required"),
     ],
