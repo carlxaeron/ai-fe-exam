@@ -3,7 +3,7 @@
     <AdminToolbar title="Media" />
     <div id="media-content">
       <h3>Media Content</h3>
-      <ArticleList :data="articles" :config="{ withStatus: true }" :loading="loading" />
+      <ArticleList :data="articles" :config="{ withStatus: true }" :loading="articlesLoading" />
     </div>
   </div>
 </template>
@@ -11,6 +11,7 @@
 <script>
 import AdminToolbar from '@/components/admin/AdminToolbar.vue';
 import ArticleList from '@/components/ArticleList.vue';
+import { mapGetters } from 'vuex';
 
   export default {
     name: 'MediaView',
@@ -34,6 +35,7 @@ import ArticleList from '@/components/ArticleList.vue';
       });
     },
     computed: {
+      ...mapGetters(['articlesLoading']),
       currentUser() {
         return this.$store.state.currentUser;
       },

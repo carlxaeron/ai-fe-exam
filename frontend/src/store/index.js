@@ -16,8 +16,11 @@ export default createStore({
     currentUser: null,
     // data
     articles: [],
+    articlesLoading: false,
     articlesForEdit: [],
+    articlesForEditLoading: false,
     articlesPublished: [],
+    articlesPublishedLoading: false,
     companies: [],
     users: [],
   },
@@ -49,11 +52,20 @@ export default createStore({
     setArticles(state, articles) {
       state.articles = articles;
     },
+    setArticlesLoading(state, loading) {
+      state.articlesLoading = loading;
+    },
     setArticlesForEdit(state, articles) {
       state.articlesForEdit = articles;
     },
+    setArticlesForEditLoading(state, loading) {
+      state.articlesForEditLoading = loading;
+    },
     setArticlesPublished(state, articles) {
       state.articlesPublished = articles;
+    },
+    setArticlesPublishedLoading(state, loading) {
+      state.articlesPublishedLoading = loading;
     },
     // companies
     setCompanies(state, companies) {
@@ -84,39 +96,57 @@ export default createStore({
       commit('setModal', { ...state.modal, show: !state.modal.show, ...modal });
     },
     // articles
+    setArticlesLoading({ commit }, loading) {
+      commit('setArticlesLoading', loading);
+    },
     setArticles({ commit }, articles) {
       commit('setArticles', articles);
+    },
+    setArticlesForEditLoading({ commit }, loading) {
+      commit('setArticlesForEditLoading', loading);
     },
     setArticlesForEdit({ commit }, articles) {
       commit('setArticlesForEdit', articles);
     },
+    setArticlesPublishedLoading({ commit }, loading) {
+      commit('setArticlesPublishedLoading', loading);
+    },
     setArticlesPublished({ commit }, articles) {
       commit('setArticlesPublished', articles);
     },
-    fetchArticles({ commit }) {
+    fetchArticles({ commit, dispatch }) {
+      dispatch('setArticlesLoading', true);
       apiService.getArticles()
         .then((response) => {
+          dispatch('setArticlesLoading', false);
           commit('setArticles', response.data);
         })
         .catch((error) => {
+          dispatch('setArticlesLoading', false);
           apiService.handleError(error);
         });
     },
-    fetchArticlesForEdit({ commit }) {
+    fetchArticlesForEdit({ commit, dispatch }) {
+      dispatch('setArticlesForEditLoading', true);
       apiService.getArticles({ page: 0, limit: 2, forEdit: true })
         .then((response) => {
+          dispatch('setArticlesForEditLoading', false);
           commit('setArticlesForEdit', response.data);
         })
         .catch((error) => {
+          dispatch('setArticlesForEditLoading', false);
           apiService.handleError(error);
         });
     },
-    fetchArticlesPublished({ commit }) {
+    fetchArticlesPublished({ commit, dispatch }) {
+      dispatch('setArticlesPublishedLoading', true);
       apiService.getArticles({ page: 0, limit: 2, published: true })
         .then((response) => {
+          dispatch('setArticlesPublishedLoading', false);
           commit('setArticlesPublished', response.data);
         })
         .catch((error) => {
+          dispatch('setArticlesPublishedLoading', false);
           apiService.handleError(error);
         });
     },
@@ -145,5 +175,13 @@ export default createStore({
     getCurrentUser: (state) => state.currentUser,
     getModal: (state) => state.modal,
     getCompanies: (state) => state.companies,
+    // articles
+    getArticles: (state) => state.articles,
+    getArticlesForEdit: (state) => state.articlesForEdit,
+    getArticlesPublished: (state) => state.articlesPublished,
+    // loading
+    articlesLoading: (state) => state.articlesLoading,
+    articlesForEditLoading: (state) => state.articlesForEditLoading,
+    articlesPublishedLoading: (state) => state.articlesPublishedLoading,
   },
 });

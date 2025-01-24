@@ -2,15 +2,16 @@
   <div id="dashboard">
     <AdminToolbar :title="`${type.toUpperCase()}'s Dashboard`" />
     <h3>For {{ type === 'writer' ? 'Edit' : 'Publish' }}</h3>
-    <ArticleList :data="articlesForEdit" :loading="loading" />
+    <ArticleList :data="articlesForEdit" :loading="isLoadingForEdit" />
     <h3>Published</h3>
-    <ArticleList :data="publishedArticles" :loading="loading" />
+    <ArticleList :data="publishedArticles" :loading="isLoadingPublished" />
   </div>
 </template>
 
 <script>
   import AdminToolbar from '@/components/admin/AdminToolbar.vue';
   import ArticleList from '@/components/ArticleList.vue';
+  import { mapGetters } from 'vuex';
 
   export default {
     name: 'DashboardView',
@@ -18,23 +19,13 @@
       AdminToolbar,
       ArticleList,
     },
-    data() {
-      return {
-        loading: false,
-      };
-    },
     mounted() {
       document.dispatchEvent(new Event('render-event'));
-      this.loading = true;
-      this.$store.dispatch('fetchArticlesForEdit').then(() => {
-        this.$store.dispatch('fetchArticlesPublished').then(() => {
-          setTimeout(() => {
-            this.loading = false;
-          }, 500);
-        });
-      });
+      this.$store.dispatch('fetchArticlesForEdit');
+      this.$store.dispatch('fetchArticlesPublished');
     },
     computed: {
+      ...mapGetters(['articlesForEditLoading', 'articlesPublishedLoading']),
       currentUser() {
         return this.$store.state.currentUser;
       },
@@ -46,6 +37,12 @@
       },
       publishedArticles() {
         return this.$store.state.articlesPublished;
+      },
+      isLoadingForEdit() {
+        return this.articlesForEditLoading;
+      },
+      isLoadingPublished() {
+        return this.articlesPublishedLoading;
       },
     },
   }

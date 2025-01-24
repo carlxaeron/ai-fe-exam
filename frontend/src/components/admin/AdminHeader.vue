@@ -41,6 +41,7 @@ export default {
   width: 1px;
   height: 1.5rem;
   background-color: var(--text-color);
+  opacity: 0.4;
 }
 #admin-right-header {
   display: flex;

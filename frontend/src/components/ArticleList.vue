@@ -24,7 +24,7 @@
         </tr>
       </tbody>
     </table>
-    <Loader v-if="loading" />
+    <Loader v-show="loading" :relative="true" :bgColor="'light'"/>
   </div>
 </template>
 
@@ -56,11 +56,6 @@ export default {
       return this.data;
     },
   },
-  watch: {
-    loading(val, oldVal) {
-      console.log('loading changed', val, oldVal);
-    },
-  },
   mounted() {
     document.dispatchEvent(new Event('render-event'));
   },
@@ -70,6 +65,7 @@ export default {
 <style lang="scss">
 .article-list {
   position: relative;
+  min-height: 10vh;
   table {
     width: 100%;
     border-collapse: collapse;
@@ -91,13 +87,5 @@ export default {
       max-width: 100px;
     }
   }
-}
-.loader {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
 }
 </style>

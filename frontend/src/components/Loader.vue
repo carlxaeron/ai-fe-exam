@@ -1,12 +1,41 @@
 <template>
-  <div class="loader">
+  <div :class="`loader ${fullPage ? 
+    (relative ? 'relative' : 'full-page') : (relative ? 'relative' : '')}`" :style="`background-color: ${getBgColor}`">
     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
+const defaultBgColor = 'rgba(0, 0, 0, 0.3)';
+
 export default {
   name: 'LoaderComponent',
+  props: {
+    fullPage: {
+      type: Boolean,
+      default: true,
+    },
+    relative: {
+      type: Boolean,
+      default: false,
+    },
+    bgColor: {
+      type: String,
+      default: defaultBgColor,
+    },
+  },
+  computed: {
+    ...mapGetters(['isDarkTheme']),
+    getBgColor() {
+      let color = this.bgColor;
+      if (color === 'light' && !this.isDarkTheme) {
+        color = 'rgba(255, 255, 255, 0.3)';
+      } else color = defaultBgColor;
+      return color;
+    },
+  },
 }
 </script>
 
@@ -16,6 +45,22 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
+  &.full-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+  }
+  &.relative {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+  }
   .lds-ellipsis {
     display: inline-block;
     position: relative;
