@@ -1,6 +1,6 @@
 <template>
   <div id="admin-article">
-    <Modal title="Create New Article" @onClose="resetForm">
+    <Modal v-if="modal.show" title="Create New Article" @onClose="resetForm">
       <template v-slot:default>
         <form @submit.prevent="submitForm">
           <FormGroup id="title" label="Title" v-model="article.title" :value="article.title" :required="true"/>
@@ -10,7 +10,11 @@
             </template>
           </FormGroup>
           <FormGroup id="link" label="Link" v-model="article.link" :value="article.link" :componen-type="link" :required="true" />
-          <FormGroup id="image" label="Image" v-model="article.image" :required="true" :value="article.image" :component-type="'input'" :component-props="{ type: 'file', accept: 'image/*' }" />
+          <FormGroup id="image" label="Image" v-model="article.image" :required="true">
+            <template v-slot:etc>
+              <input type="file" ref="image" required accept="image/*" @change="handleImage"/>
+            </template>
+          </FormGroup>
           <FormGroup id="date" label="Date" v-model="article.date" :value="article.date" :component-type="'input'" :component-props="{ type: 'date' }" :required="true" />
           <FormGroup id="company" label="Company" v-model="article.company" :value="article.company" :component-type="'select'" :required="true">
             <option value="">Select Company</option>
@@ -83,7 +87,22 @@ export default {
         image: '',
       };
     },
+    handleImage(event) {
+      if (event.target.files.length > 0) {
+        this.article.image = this.encodeImage(event.target.files[0]);
+      }
+    },
+    encodeImage (input) {
+      if (input) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          this.article.image = e.target.result
+        }
+        reader.readAsDataURL(input)
+      }
+    },
     submitForm() {
+      const formData = new FormData();
       let withError = false;
       Object.keys(this.article).forEach((key) => {
         if (!this.article[key]) {
@@ -101,9 +120,21 @@ export default {
         return this.$store.commit('setNotification', { type: 'error', message: 'Must be a valid link', show: true });
       }
 
-      apiService.createArticle(this.article)
+      formData.append('title', this.article.title);
+      formData.append('link', this.article.link);
+      formData.append('content', this.article.content);
+      formData.append('company', this.article.company);
+      formData.append('date', this.article.date);
+      formData.append('image', this.article.image);
+
+      apiService.createArticle(formData)
         .then((response) => {
-          console.log(response);
+          if(response.status === 201) {
+            this.$store.commit('setNotification', { type: 'success', message: 'Article created successfully', show: true });
+            this.toggleModal();
+            this.resetForm();
+            this.$store.dispatch('fetchGlobalArticles');
+          }
         })
         .catch((error) => {
           apiService.handleError(error);

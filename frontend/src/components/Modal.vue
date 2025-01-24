@@ -52,7 +52,7 @@ export default {
     ...mapActions(['toggleModal']),
     handleClose() {
       this.toggleModal();
-      this.$emit('close')
+      this.$emit('onClose')
     }
   }
 }

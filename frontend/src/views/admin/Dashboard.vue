@@ -2,9 +2,9 @@
   <div id="dashboard">
     <AdminToolbar :title="`${type.toUpperCase()}'s Dashboard`" />
     <h3>For {{ type === 'writer' ? 'Edit' : 'Publish' }}</h3>
-    <ArticleList :data="articlesForEdit" />
+    <ArticleList :data="articlesForEdit" :loading="loading" />
     <h3>Published</h3>
-    <ArticleList :data="publishedArticles" />
+    <ArticleList :data="publishedArticles" :loading="loading" />
   </div>
 </template>
 
@@ -18,11 +18,21 @@
       AdminToolbar,
       ArticleList,
     },
+    data() {
+      return {
+        loading: false,
+      };
+    },
     mounted() {
       document.dispatchEvent(new Event('render-event'));
-
-      this.$store.dispatch('fetchArticlesForEdit');
-      this.$store.dispatch('fetchArticlesPublished');
+      this.loading = true;
+      this.$store.dispatch('fetchArticlesForEdit').then(() => {
+        this.$store.dispatch('fetchArticlesPublished').then(() => {
+          setTimeout(() => {
+            this.loading = false;
+          }, 1000);
+        });
+      });
     },
     computed: {
       currentUser() {

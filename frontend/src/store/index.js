@@ -120,6 +120,11 @@ export default createStore({
           apiService.handleError(error);
         });
     },
+    fetchGlobalArticles({ dispatch }) {
+      dispatch('fetchArticles');
+      dispatch('fetchArticlesForEdit');
+      dispatch('fetchArticlesPublished');
+    },
     // companies
     setCompanies({ commit }, companies) {
       commit('setCompanies', companies);
