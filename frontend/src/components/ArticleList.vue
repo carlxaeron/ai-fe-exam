@@ -13,7 +13,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="article in articles" :key="article.id">
+        <tr v-if="articles.length === 0">
+          <td colspan="7">No articles found.</td>
+        </tr>
+        <tr v-else v-for="article in articles" :key="article.id">
           <td><img v-if="article.image" :src="article.image" alt="Article Image" /></td>
           <td>{{ article.title }}</td>
           <td><a :href="article.link" target="_blank">Link</a></td>
@@ -65,11 +68,11 @@ export default {
 <style lang="scss">
 .article-list {
   position: relative;
-  min-height: 10vh;
   table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
+    min-height: 10vh;
     th, td {
       border: 1px solid var(--primary-color);
       padding: 8px;

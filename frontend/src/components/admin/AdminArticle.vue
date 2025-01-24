@@ -10,9 +10,12 @@
             </template>
           </FormGroup>
           <FormGroup id="link" label="Link" v-model="article.link" :value="article.link" :componen-type="link" :required="true" />
-          <FormGroup id="image" label="Image" v-model="article.image" :required="true">
+          <FormGroup :loading="image.uploading" id="image" label="Image" v-model="article.image" :required="true">
             <template v-slot:etc>
               <input type="file" ref="image" required accept="image/*" @change="handleImage"/>
+              <div id="article-img" v-if="article.image">
+                <img :src="article.image" alt="Article Image" />
+              </div>
             </template>
           </FormGroup>
           <FormGroup id="date" label="Date" v-model="article.date" :value="article.date" :component-type="'input'" :component-props="{ type: 'date' }" :required="true" />
@@ -41,6 +44,8 @@ import { mapActions, mapGetters } from 'vuex';
 import apiService from '@/services/apiService';
 import Button from '../Button.vue';
 import FormGroup from '../FormGroup.vue';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { storage } from '@/services/firebase';
 
 export default {
   name: 'AdminArticle',
@@ -64,7 +69,11 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         image: '',
       },
-      content: '',
+      image: {
+        file: null,
+        url: '',
+        uploading: false,
+      }
     }
   },
   mounted() {
@@ -88,17 +97,63 @@ export default {
       };
     },
     handleImage(event) {
+      this.article.image = '';
+      this.imagefile = null;
+
       if (event.target.files.length > 0) {
-        this.article.image = this.encodeImage(event.target.files[0]);
-      }
-    },
-    encodeImage (input) {
-      if (input) {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          this.article.image = e.target.result
-        }
-        reader.readAsDataURL(input)
+        // const storage = getStorage(app);
+        const file = event.target.files[0];
+        this.image.file = file;
+
+        const newFileName = new Date().getTime() + 
+        Math.random().toString(36).substring(2) +
+        '-' + file.name;
+
+        const storageRef = ref(storage, 'images/' + newFileName);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        this.image.uploading = true;
+
+        const onSuccess = () => {
+          console.log('File uploaded successfully');
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            this.article.image = downloadURL;
+            this.image.uploading = false;
+          });
+        };
+
+        uploadTask.on('state_changed',
+          (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+              case 'running':
+                // Handle running state
+                break;
+              case 'paused':
+                // Handle paused state
+                break;
+              case 'success':
+                // Handle successful uploads
+                console.log('File uploaded successfully');
+                onSuccess();
+                break;
+            }
+          },
+          (error) => {
+            // Handle unsuccessful uploads
+            console.error('Upload failed:', error);
+
+            this.$store.commit('setNotification', { type: 'error', message: 'Image upload failed', show: true });
+            this.image.uploading = false;
+          },
+          () => {
+            // Handle successful uploads
+            onSuccess();
+          }
+        );
       }
     },
     submitForm() {
@@ -118,6 +173,14 @@ export default {
       const linkPattern = /^(http|https):\/\/[a-zA-Z0-9-.]+\.[a-zA-Z]{2,}(\/\S*)?$/;
       if (!linkPattern.test(this.article.link)) {
         return this.$store.commit('setNotification', { type: 'error', message: 'Must be a valid link', show: true });
+      }
+
+      if (this.image.uploading) {
+        return this.$store.commit('setNotification', { type: 'error', message: 'Image is uploading', show: true });
+      }
+
+      if (!this.image.file || !this.image.file.name || !this.image.file.size) {
+        return this.$store.commit('setNotification', { type: 'error', message: 'Image is required', show: true });
       }
 
       formData.append('title', this.article.title);
@@ -170,5 +233,12 @@ export default {
     border-radius: 50%;
     font-size: 1.5rem;
     cursor: pointer;
+  }
+  #article-img {
+    margin-top: 1rem;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 </style>

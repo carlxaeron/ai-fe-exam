@@ -1,5 +1,11 @@
 # ai-fe-exam
 Developer Exam - CARL LOUIS MANUEL
+## Added features by CARL LOUIS MANUEL:
+- Dark/Light Theme
+- Loader
+- Backend/Frontend Validations
+- Security
+## How To Run
 
 ## Specifications
 - Develop a Writer/Editor Dashboard Site that has the ability to create, edit, and publish an article related to a company. 

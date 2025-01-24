@@ -1,5 +1,5 @@
 <template>
-  <div v-show="isShow" id="modal-container" :class="`modal-size-${size}`">
+  <div v-show="isShow" id="modal-container" :class="`modal-appear modal-size-${size}`">
     <div id="modal">
       <h2>{{ title }}</h2>
       <div id="modal-content">
@@ -48,6 +48,9 @@ export default {
       document.body.style.overflow = 'hidden';
     }
   },
+  unmounted() {
+    document.body.style.overflow = 'auto';
+  },
   methods: {
     ...mapActions(['toggleModal']),
     handleClose() {
@@ -85,6 +88,17 @@ export default {
           width: 90%;
         }
       }
+    }
+    &.modal-appear {
+      animation: modal-appear 0.3s ease;
+    }
+  }
+  @keyframes modal-appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
   #modal {

@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group">
+  <div :class="`form-group ${loading || disabled ? 'frm-disabled' : ''}`">
     <label :for="id">{{ label }}</label>
     <component
       v-if="!haslot"
@@ -11,6 +11,7 @@
       @focus="touched = true"
       @blur="touched = true"
       @input="handleInput"
+      :disabled="loading"
     >
       <slot></slot>
     </component>
@@ -47,6 +48,14 @@ export default {
       type: [String, Number, Object],
       default: '',
       required: true,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -103,6 +112,10 @@ export default {
   }
   label {
     margin-bottom: 0.5rem;
+  }
+  &.frm-disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 }
 .validation-error {

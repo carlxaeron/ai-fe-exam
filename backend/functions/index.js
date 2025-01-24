@@ -4,10 +4,6 @@ const admin = require("firebase-admin");
 const {body, validationResult} = require("express-validator");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const multer = require("multer");
-// Set up multer for file uploads
-const storage = multer.memoryStorage();
-const upload = multer({storage: storage});
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -33,13 +29,13 @@ const checkUsernameHeader = (req, res, next) => {
 app.post(
     "/articles",
     checkUsernameHeader,
-    upload.single("image"),
     [
       body("title").notEmpty().withMessage("Title is required"),
       body("link").isURL().withMessage("Link must be a valid URL"),
       body("date").notEmpty().withMessage("Date is required"),
       body("content").notEmpty().withMessage("Content is required"),
       body("company").notEmpty().withMessage("Company is required"),
+      body("image").isURL().withMessage("Image is required"),
     ],
     async (req, res) => {
       const errors = validationResult(req);
@@ -59,7 +55,6 @@ app.post(
       const article = req.body;
       article.writer = req.headers["x-username"];
       article.status = "For Edit";
-
       await db.collection("articles").add(article);
       res.status(201).send();
     },

@@ -9,7 +9,7 @@ const apiService = {
   },
   // articles
   createArticle(article) {
-    return axiosInstance({formData: false}).post(helper.getBaseUrl('articles'), article);
+    return axiosInstance().post(helper.getBaseUrl('articles'), article);
   },
   getArticles(config = {}) {
     if (config.id) {
