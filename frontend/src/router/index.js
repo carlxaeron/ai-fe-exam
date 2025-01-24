@@ -4,6 +4,7 @@ import Login from '../views/Login.vue';
 import Dashboard from '../views/admin/Dashboard.vue';
 import store from '../store';
 import Media from '@/views/admin/Media.vue';
+import NotFound from '@/views/NotFound.vue';
 
 // Import your views/components here
 
@@ -30,6 +31,11 @@ const routes = [
     name: 'Media',
     component: Media,
     meta: { type: 'admin' }
+  },
+  {
+    path: '/:pathMatch(.*)*', // Catch-all route for 404
+    name: 'NotFound',
+    component: NotFound,
   }
 ];
 

@@ -16,6 +16,19 @@
           Manage Users</router-link>
       </nav>
     </div>
+    <div v-if="currentUser?.type === 'editor'">
+      <div id="menu-parent">Users</div>
+      <nav id="menu-child">
+        <router-link :to="{ name: 'Admin' }">
+          <i class="fas fa-users"></i>
+          Manage Users</router-link>
+      </nav>
+    </div>
+    <div id="menu-parent"><hr/></div>
+    <nav id="menu-child">
+      <router-link to="/settings" active-class="active">
+        <i class="fas fa-cog"></i>Settings</router-link>
+    </nav>
   </div>
 </template>
 

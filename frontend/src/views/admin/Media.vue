@@ -3,7 +3,7 @@
     <AdminToolbar title="Media" />
     <div id="media-content">
       <h3>Media Content</h3>
-      <ArticleList :data="articles" :config="{ withStatus: true }" />
+      <ArticleList :data="articles" :config="{ withStatus: true }" :loading="loading" />
     </div>
   </div>
 </template>
@@ -18,10 +18,20 @@ import ArticleList from '@/components/ArticleList.vue';
       AdminToolbar,
       ArticleList,
     },
+    data() {
+      return {
+        loading: false,
+      };
+    },
     mounted() {
       document.dispatchEvent(new Event('render-event'));
 
-      this.$store.dispatch('fetchArticles');
+      this.loading = true;
+      this.$store.dispatch('fetchArticles').then(() => {
+        setTimeout(() => {
+          this.loading = false;
+        }, 500);
+      });
     },
     computed: {
       currentUser() {

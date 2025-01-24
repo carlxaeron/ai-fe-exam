@@ -30,7 +30,7 @@
         this.$store.dispatch('fetchArticlesPublished').then(() => {
           setTimeout(() => {
             this.loading = false;
-          }, 1000);
+          }, 500);
         });
       });
     },
