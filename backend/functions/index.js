@@ -45,10 +45,14 @@ app.post(
       }
 
       const {date} = req.body;
+      let parsedDate;
       if (date) {
-        const currentDate = new Date();
-        const [year, month, day] = date.split("-");
-        req.body.date = new Date(year, month - 1, day, currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
+        parsedDate = new Date(date);
+        if (isNaN(parsedDate.getTime())) {
+          return res.status(400).json({error: "Invalid date format"});
+        } else {
+          req.body.date = parsedDate;
+        }
       } else {
         req.body.date = new Date();
       }

@@ -18,7 +18,7 @@
               </div>
             </template>
           </FormGroup>
-          <FormGroup id="date" label="Date" v-model="article.date" :value="article.date" :component-type="'input'" :component-props="{ type: 'date' }" :required="true" />
+          <FormGroup id="date" label="Date" v-model="article.date" :value="article.date" :component-type="'input'" :component-props="{ type: 'datetime' }" :required="true" />
           <FormGroup id="company" label="Company" v-model="article.company" :value="article.company" :component-type="'select'" :required="true">
             <option value="">Select Company</option>
             <option v-for="company in companies" :key="company.id" :value="company.id">{{ company.name }}</option>
@@ -63,7 +63,7 @@ export default {
         link: '',
         content: '',
         company: '',
-        date: new Date().toISOString().substr(0, 10),
+        date: this.getCurrentDateTime(),
         image: '',
       },
       image: {
@@ -84,6 +84,16 @@ export default {
   },
   methods: {
     ...mapActions(['setCompanies', 'getArticle']),
+    getCurrentDateTime() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const time = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}T${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+      return time;
+    },
     getTitle() {
       return this.isEdit ? 'Edit "' + this.getArticle.title + '"' : 'Create Article';
     },
@@ -97,7 +107,7 @@ export default {
         link: '',
         content: '',
         company: '',
-        date: new Date().toISOString().substr(0, 10),
+        date: this.getCurrentDateTime(),
         image: '',
       };
       this.$store.dispatch('setArticle', null);
@@ -200,7 +210,7 @@ export default {
         .then((response) => {
           if(response.status === 201) {
             this.$store.commit('setNotification', { type: 'success', message: 'Article created successfully', show: true });
-            this.toggleModal();
+            this.$store.dispatch('showAdminArticle', false);
             this.resetForm();
             this.$store.dispatch('fetchGlobalArticles');
           }

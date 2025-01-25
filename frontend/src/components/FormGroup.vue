@@ -1,8 +1,17 @@
 <template>
   <div :class="`form-group ${loading || disabled ? 'frm-disabled' : ''}`">
     <label :for="id">{{ label }}</label>
+    <DateTime v-if="isDateTime && !haslot" 
+      :disabled="loading" 
+      :value="value" 
+      @input="handleInput"
+      :required="required"
+      @focus="touched = true"
+      @blur="touched = true"
+      :id="id"
+      />
     <component
-      v-if="!haslot"
+      v-else-if="!haslot"
       :is="componentType"
       :id="id"
       :required="required"
@@ -21,6 +30,8 @@
 </template>
 
 <script>
+import DateTime from './DateTime.vue';
+
 export default {
   name: 'FormGroup',
   props: {
@@ -68,6 +79,9 @@ export default {
     haslot() {
       return !!this.$slots.etc;
     },
+    isDateTime() {
+      return this.componentProps.type === 'datetime';
+    },
   },
   methods: {
     handleInput(event) {
@@ -93,6 +107,11 @@ export default {
   },
   mounted() {
     document.dispatchEvent(new Event('render-event'));
+
+    console.log(this.componentProps, this, 'parent mounted');
+  },
+  components: {
+    DateTime,
   },
 };
 </script>

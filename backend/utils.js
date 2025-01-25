@@ -3,4 +3,4 @@ const PUBLISHED = 'Published';
 const WRITER = 'writer';
 const EDITOR = 'editor';
 
-export { FOR_EDIT, PUBLISHED, WRITER, EDITOR };
+module.exports = { FOR_EDIT, PUBLISHED, WRITER, EDITOR };

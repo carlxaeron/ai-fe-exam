@@ -43,6 +43,7 @@ const apiService = {
   handleError(error) {
     const response = error.response;
     if (!response) {
+      console.error(error);
       store.commit('setNotification', { type: 'error', message: 'Network error. Please try again later.', show: true });
       return;
     }
