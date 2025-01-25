@@ -12,17 +12,25 @@
       </div>
       <div class="admin-divider"></div>
       <SwitchTheme />
+      <div class="admin-divider"></div>
+      <button id="logout-btn" @click="logout">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
     </div>
+    <Confirmation :show="showLogoutConfirmation" title="Logout?" @onConfirm="confirm" @onCancel="cancel" />
   </header>
 </template>
 
 <script>
+import Confirmation from '../Confirmation.vue';
 import SwitchTheme from '../SwitchTheme.vue';
+
 
 export default {
   name: 'AdminHeader',
   components: {
     SwitchTheme,
+    Confirmation,
   },
   mounted() {
     document.dispatchEvent(new Event('render-event'))
@@ -31,6 +39,22 @@ export default {
     currentUser() {
       return this.$store.state.currentUser;
     },
+  },
+  methods: {
+    logout() {
+      this.showLogoutConfirmation = true;
+    },
+    confirm() {
+      this.showLogoutConfirmation = false;
+    },
+    cancel() {
+      this.showLogoutConfirmation = false;
+    },
+  },
+  data() {
+    return {
+      showLogoutConfirmation: false,
+    };
   },
 }
 </script>
@@ -48,6 +72,9 @@ export default {
   align-items: center;
   gap: 1rem;
   justify-content: center;
+  #logout-btn {
+
+  }
 }
 #admin-user-name {
   display: flex;
@@ -84,6 +111,9 @@ export default {
 }
 h1 {
   margin: 0;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
 }
 nav {
   display: flex;

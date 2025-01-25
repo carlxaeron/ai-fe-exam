@@ -1,6 +1,6 @@
 <template>
   <div class="article-list">
-    <table>
+    <Table>
       <thead>
         <tr>
           <th>Image</th>
@@ -32,7 +32,7 @@
           </td>
         </tr>
       </tbody>
-    </table>
+    </Table>
     <Loader v-show="loading" :relative="true" :bgColor="'light'"/>
   </div>
 </template>
@@ -43,6 +43,7 @@ import Button from './Button.vue';
 import Loader from './Loader.vue';
 const { mapGetters } = require('vuex');
 import Badge from './Badge.vue';
+import Table from './Table.vue';
 
 export default {
   name: 'ArticleListComponent',
@@ -50,6 +51,7 @@ export default {
     Loader,
     Button,
     Badge,
+    Table,
   },
   props: {
     data: {
@@ -116,27 +118,5 @@ export default {
 <style lang="scss">
 .article-list {
   position: relative;
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    min-height: 10vh;
-    th, td {
-      border: 1px solid var(--primary-color);
-      padding: 8px;
-      color: black;
-      a {
-        text-decoration: underline;
-      }
-    }
-    th {
-      background-color: var(--secondary-color);
-      text-align: left;
-      color: var(--primary-color);
-    }
-    img {
-      max-width: 100px;
-    }
-  }
 }
 </style>

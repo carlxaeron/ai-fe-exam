@@ -1,11 +1,11 @@
 <template>
   <div id="confirmation" :class="`confirmation-${show ? 'on' : 'off'}`">
-    <Modal :with-close="false">
+    <Modal :show="showModal" :with-close="false" :size="'sm'" @onClose="() => {}">
       <template v-slot:header>
-        <h3>Confirmation</h3>
+        <h3>{{ title }}</h3>
       </template>
       <template v-slot:default>
-        <p>Are you sure you want to proceed?</p>
+        <p>{{ message }}</p>
       </template>
       <template v-slot:actions>
         <Button @click="handleCancel">Cancel</Button>
@@ -18,7 +18,6 @@
 <script>
 import Modal from './Modal.vue';
 import Button from './Button.vue';
-import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'ConfirmationComponent',
@@ -26,30 +25,41 @@ export default {
     Modal,
     Button,
   },
-  data() {
-    return {
-      show: false,
-    }
+  props: {
+    show: {
+      type: Boolean,
+      default: false,
+    },
+    title: {
+      type: String,
+      default: 'Confirmation',
+    },
+    message: {
+      type: String,
+      default: 'Are you sure you want to proceed?',
+    },
   },
   mounted() {
-    document.addEventListener('confirmation-event', this.handleConfirmationEvent);
+    document.dispatchEvent(new Event('render-event'));
   },
+  emits: ['onConfirm', 'onCancel'],
   methods: {
-    ...mapActions(['toggleConfirmModal']),
-    handleConfirmationEvent() {
-      this.show = true;
-    },
     onConfirm() {
-      this.getConfirmModal.onConfirm();
-      this.toggleConfirmModal();
+      this.$emit('onConfirm');
     },
     handleCancel() {
-      this.toggleConfirmModal();
-      this.show = false;
+      this.$emit('onCancel');
     },
   },
-  computed: {
-    ...mapGetters(['getConfirmModal'])
+  watch: {
+    show(val) {
+      this.showModal = val;
+    }
+  },
+  data() {
+    return {
+      showModal: false,
+    };
   },
 }
 </script>
@@ -63,7 +73,7 @@ export default {
   padding: 1rem;
   width: 100%;
   &.confirmation-off {
-    display: block;
+    display: none;
   }
 }
 </style>

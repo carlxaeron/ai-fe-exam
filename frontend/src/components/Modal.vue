@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isShow" id="modal-container" :class="`modal-appear modal-size-${size}`">
+  <div v-if="show" id="modal-container" :class="`modal-appear modal-size-${size}`">
     <div id="modal">
       <div id="modal-header" v-if="hasHeaderSlot">
         <slot name="header"></slot>
@@ -26,6 +26,7 @@ export default {
   props: {
     show: {
       type: Boolean,
+      default: false,
     },
     size: {
       type: String,
@@ -42,9 +43,6 @@ export default {
   },
   computed: {
     ...mapGetters(['getModal']),
-    isShow() {
-      return this.getModal.show;
-    },
     hasHeaderSlot() {
       return !!this.$slots.header;
     },
@@ -93,6 +91,14 @@ export default {
         width: 70%;
         @media screen and (min-width: #{$md}) {
           width: 800px;
+        }
+      }
+    }
+    &.modal-size-sm {
+      #modal {
+        width: 50%;
+        @media screen and (min-width: #{$md}) {
+          width: 600px;
         }
       }
     }

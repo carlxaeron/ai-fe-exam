@@ -107,8 +107,6 @@ export default {
   },
   mounted() {
     document.dispatchEvent(new Event('render-event'));
-
-    console.log(this.componentProps, this, 'parent mounted');
   },
   components: {
     DateTime,

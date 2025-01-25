@@ -2,12 +2,13 @@
   <section id="login">
     <h2>Login</h2>
     <div class="container" id="login-container">
-      <form @submit.prevent="login">
+      <form @submit.prevent="!loading && login()">
         <FormGroup id="username" label="Username" v-model="username" :value="username" :required="true" />
         <FormGroup id="password" label="Password" v-model="password" :value="password" :component-type="'input'" :component-props="{ type: 'password', minlength: 8 }" :required="true" />
-        <Button type="submit">Login</Button>
+        <Button :disabled="loading" type="submit">Login</Button>
       </form>
     </div>
+    <Loader v-show="loading" />
   </section>
 </template>
 
@@ -15,29 +16,37 @@
 import apiService from '@/services/apiService';
 import Button from '@/components/Button.vue';
 import FormGroup from '@/components/FormGroup.vue';
+import Loader from '@/components/Loader.vue';
 
 export default {
   name: 'LoginView',
   components: {
     Button,
     FormGroup,
+    Loader,
   },
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      loading: false,
     }
   },
   methods: {
     login() {
+      this.loading = true;
       apiService.login(this.username, this.password)
         .then(response => {
           if (response.status === 200) {
             this.$store.commit('setCurrentUser', response.data);
             this.$router.push({ name: 'Admin' })
           }
+          this.loading = false;
         })
-        .catch(error => apiService.handleError(error))
+        .catch(error => {
+          apiService.handleError(error);
+          this.loading = false;
+        });
     }
   }
 }

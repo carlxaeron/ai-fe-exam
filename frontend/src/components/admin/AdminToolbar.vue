@@ -1,5 +1,5 @@
 <template>
-  <div id="admin-toolbar">
+  <div id="admin-toolbar" :class="getClass">
     <h2>{{ title }}</h2>
     <div id="admin-toolbar-right">
       <slot name="right"></slot>
@@ -19,6 +19,11 @@ export default {
   mounted() {
     document.dispatchEvent(new Event('render-event'))
   },
+  computed: {
+    getClass() {
+      return this.$store.state.isDarkTheme ? 'dark-theme' : ''
+    }
+  }
 }
 </script>
 
@@ -30,5 +35,8 @@ export default {
     padding: 1rem;
     border-bottom: 1px solid #dee2e6;
     margin-bottom: 1rem;
+    &.dark-theme {
+      border-bottom: 1px solid #dee2e61a;
+    }
   }
 </style>

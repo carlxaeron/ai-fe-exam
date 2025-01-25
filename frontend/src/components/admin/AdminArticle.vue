@@ -1,6 +1,6 @@
 <template>
   <div id="admin-article">
-    <Modal :title="getTitle()" @onClose="close">
+    <Modal :show="modal.show" :title="getTitle()" @onClose="close">
       <template v-slot:default>
         <form @submit.prevent="submitForm">
           <FormGroup id="title" label="Title" v-model="article.title" :value="article.title" :required="true"/>
@@ -10,7 +10,7 @@
             </template>
           </FormGroup>
           <FormGroup id="link" label="Link" v-model="article.link" :value="article.link" :componen-type="link" :required="true" />
-          <FormGroup :loading="image.uploading" id="image" label="Image" v-model="article.image" :required="isEdit ? false : true">
+          <FormGroup :value="article.image" :loading="image.uploading" id="image" label="Image" v-model="article.image" :required="isEdit ? false : true">
             <template v-slot:etc>
               <input type="file" ref="image" :required="isEdit ? false : true" accept="image/*" @change="handleImage"/>
               <div id="article-img" v-if="article.image">
@@ -139,9 +139,7 @@ export default {
         this.image.uploading = true;
 
         const onSuccess = () => {
-          console.log('File uploaded successfully');
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log('File available at', downloadURL);
             this.article.image = downloadURL;
             this.image.uploading = false;
           });
@@ -150,8 +148,7 @@ export default {
         uploadTask.on('state_changed',
           (snapshot) => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
+            // const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             switch (snapshot.state) {
               case 'running':
                 // Handle running state
@@ -161,7 +158,6 @@ export default {
                 break;
               case 'success':
                 // Handle successful uploads
-                console.log('File uploaded successfully');
                 onSuccess();
                 break;
             }

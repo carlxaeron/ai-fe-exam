@@ -7,7 +7,7 @@
       <router-view />
     </LayoutComponent>
     <NotificationComponent />
-    <ConfirmationComponent v-if="isConfirmation" />
+    <ConfirmationComponent :show="isConfirmation" @onConfirm="confirmationConfirm" @onCancel="confirmationCancel" />
   </div>
 </template>
 
@@ -27,7 +27,14 @@ export default {
     ConfirmationComponent,
   },
   methods: {
-    ...mapActions(['applyInitialTheme']),
+    ...mapActions(['applyInitialTheme', 'toggleConfirmModal']),
+    confirmationConfirm() {
+      this.toggleConfirmModal();
+      this.getConfirmModal.onConfirm();
+    },
+    confirmationCancel() {
+      this.toggleConfirmModal();
+    }
   },
   computed: {
     ...mapGetters(['isDarkTheme' , 'getConfirmModal']),

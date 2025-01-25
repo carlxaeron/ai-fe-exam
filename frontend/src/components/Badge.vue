@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
   .badge {
     display: inline-block;
     padding: 0.25rem 0.5rem;
@@ -29,23 +29,24 @@ export default {
     text-transform: uppercase;
     color: white;
     background: var(--primary-color);
-  }
-  .badge.primary {
-    background: var(--primary-color);
-  }
-  .badge.secondary {
-    background: var(--secondary-color);
-  }
-  .badge.success {
-    background: var(--success-color);
-  }
-  .badge.danger {
-    background: var(--danger-color);
-  }
-  .badge.warning {
-    background: var(--warning-color);
-  }
-  .badge.info {
-    background: var(--info-color);
+    text-align: center;
+    &.primary {
+      background: var(--primary-color);
+    }
+    &.secondary {
+      background: var(--secondary-color);
+    }
+    &.success {
+      background: var(--success-color);
+    }
+    &.danger {
+      background: var(--danger-color);
+    }
+    &.warning {
+      background: var(--warning-color);
+    }
+    &.info {
+      background: var(--info-color);
+    }
   }
 </style>
