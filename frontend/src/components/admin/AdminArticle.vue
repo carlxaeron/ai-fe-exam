@@ -10,9 +10,9 @@
             </template>
           </FormGroup>
           <FormGroup id="link" label="Link" v-model="article.link" :value="article.link" :componen-type="link" :required="true" />
-          <FormGroup :loading="image.uploading" id="image" label="Image" v-model="article.image" :required="true">
+          <FormGroup :loading="image.uploading" id="image" label="Image" v-model="article.image" :required="isEdit ? false : true">
             <template v-slot:etc>
-              <input type="file" ref="image" required accept="image/*" @change="handleImage"/>
+              <input type="file" ref="image" :required="isEdit ? false : true" accept="image/*" @change="handleImage"/>
               <div id="article-img" v-if="article.image">
                 <img :src="article.image" alt="Article Image" />
               </div>
@@ -27,7 +27,11 @@
         </form>
       </template>
       <template v-slot:actions>
-        <Button @click="handleCreate">Create</Button>
+        <Button v-if="!isEdit" @click="handleCreate">Create</Button>
+        <template v-else>
+          <Button @click="handleSave">Save</Button>
+          <Button type="success" @click="handlePublish">Publish</Button>
+        </template>
       </template>
     </Modal>
   </div>
@@ -70,7 +74,8 @@ export default {
         file: null,
         url: '',
         uploading: false,
-      }
+      },
+      action: 'create',
     }
   },
   mounted() {
@@ -79,7 +84,9 @@ export default {
     this.$store.dispatch('fetchCompanies');
 
     if (this.getArticle) {
-      this.article = this.getArticle;
+      this.article = {
+        ...this.getArticle,
+      };
     }
   },
   methods: {
@@ -176,7 +183,7 @@ export default {
       const formData = new FormData();
       let withError = false;
       Object.keys(this.article).forEach((key) => {
-        if (!this.article[key]) {
+        if (!this.article[key] && key !== 'writer' && key !== 'editor') {
           withError = key;
         }
       });
@@ -195,7 +202,7 @@ export default {
         return this.$store.commit('setNotification', { type: 'error', message: 'Image is uploading', show: true });
       }
 
-      if (!this.image.file || !this.image.file.name || !this.image.file.size) {
+      if ((!this.image.file || !this.image.file.name || !this.image.file.size) && !this.isEdit) {
         return this.$store.commit('setNotification', { type: 'error', message: 'Image is required', show: true });
       }
 
@@ -206,6 +213,31 @@ export default {
       formData.append('date', this.article.date);
       formData.append('image', this.article.image);
 
+      // Create article
+      if (this.action === 'create') {
+        this.createArticle(formData);
+      } else if (this.action === 'save') {
+        this.$store.dispatch('toggleConfirmModal', {
+          onConfirm: () => {
+            this.saveArticle(formData);
+          }
+        });
+      }
+    },
+    handleCreate() {
+      this.action = 'create';
+      this.$refs.submitBtn.click();
+    },
+    handleSave() {
+      this.action = 'save';
+      this.$refs.submitBtn.click();
+    },
+    handlePublish() {
+
+    },
+
+    // API calls
+    createArticle(formData) {
       apiService.createArticle(formData)
         .then((response) => {
           if(response.status === 201) {
@@ -219,8 +251,19 @@ export default {
           apiService.handleError(error);
         });
     },
-    handleCreate() {
-      this.$refs.submitBtn.click();
+    saveArticle(formData) {
+      apiService.updateArticle(this.getArticle.id, formData)
+        .then((response) => {
+          if(response.status === 200) {
+            this.$store.commit('setNotification', { type: 'success', message: 'Article saved successfully', show: true });
+            this.$store.dispatch('showAdminArticle', false);
+            this.resetForm();
+            this.$store.dispatch('fetchGlobalArticles');
+          }
+        })
+        .catch((error) => {
+          apiService.handleError(error);
+        });
     },
   },
   computed: {

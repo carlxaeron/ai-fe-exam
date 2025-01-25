@@ -34,6 +34,12 @@ $blue-3: #90caf9;
 $blue-4: #bbdefb;
 $blue-5: #e3f2fd;
 
+$yellow-1: #ffeb3b;
+$yellow-2: #fff176;
+$yellow-3: #fff59d;
+$yellow-4: #fff9c4;
+$yellow-5: #fffde7;
+
 // Mixin to apply light theme
 @mixin light-theme {
   $primary-color: $light-primary-color !global;

@@ -7,6 +7,7 @@
       <router-view />
     </LayoutComponent>
     <NotificationComponent />
+    <ConfirmationComponent v-if="isConfirmation" />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import { mapActions, mapGetters } from 'vuex';
 import LayoutComponent from '@/components/Layout.vue';
 import AdminLayoutComponent from '@/components/admin/AdminLayout.vue';
 import NotificationComponent from '@/components/Notification.vue';
+import ConfirmationComponent from './components/Confirmation.vue';
 
 export default {
   name: 'App',
@@ -22,18 +24,22 @@ export default {
     LayoutComponent,
     AdminLayoutComponent,
     NotificationComponent,
+    ConfirmationComponent,
   },
   methods: {
     ...mapActions(['applyInitialTheme']),
   },
   computed: {
-    ...mapGetters(['isDarkTheme']),
+    ...mapGetters(['isDarkTheme' , 'getConfirmModal']),
     routeMeta() {
       return this.$route.meta;
     },
     themeClass() {
       return this.isDarkTheme ? 'dark-theme' : 'light-theme';
     },
+    isConfirmation() {
+      return this.getConfirmModal.show;
+    }
   },
   watch: {
     $route(to) {

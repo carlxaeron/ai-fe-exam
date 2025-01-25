@@ -4,7 +4,7 @@ const admin = require("firebase-admin");
 const {body, validationResult} = require("express-validator");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const {FOR_EDIT, PUBLISHED, parseDate} = require("../utils");
+const {FOR_EDIT, PUBLISHED, parseDate, parseReqDate, WRITER} = require("../utils");
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -26,6 +26,15 @@ const checkUsernameHeader = (req, res, next) => {
   next();
 };
 
+const checkUserValidation = async (req, res) => {
+  const user = req.headers["x-username"];
+  const userSnapshot = await db.collection("users").where("username", "==", user).get();
+  if (userSnapshot.empty) {
+    return res.status(401).json({error: "Unauthorized"});
+  }
+  return userSnapshot.docs[0].data();
+};
+
 // Function to create a new article
 app.post(
     "/articles",
@@ -44,18 +53,12 @@ app.post(
         return res.status(400).json({errors: errors.array()});
       }
 
-      const {date} = req.body;
-      let parsedDate;
-      if (date) {
-        parsedDate = new Date(date);
-        if (isNaN(parsedDate.getTime())) {
-          return res.status(400).json({error: "Invalid date format"});
-        } else {
-          req.body.date = parsedDate;
-        }
-      } else {
-        req.body.date = new Date();
+      const user = checkUserValidation(req, res);
+      if (user.type !== WRITER) {
+        return res.status(401).json({error: "Unauthorized"});
       }
+
+      req.body.date = parseReqDate(req);
 
       const article = req.body;
       article.writer = req.headers["x-username"];
@@ -69,16 +72,12 @@ app.post(
 app.put(
     "/articles/:id",
     [
-      body("relatedCompany").optional().notEmpty().withMessage("Related company cannot be empty"),
-      body("image").optional().notEmpty().withMessage("Image cannot be empty"),
-      body("title").optional().notEmpty().withMessage("Title cannot be empty"),
-      body("link").optional().isURL().withMessage("Link must be a valid URL"),
-      body("date").optional().notEmpty().withMessage("Date cannot be empty"),
-      body("content").optional().notEmpty().withMessage("Content cannot be empty"),
-      body("status").optional().isIn([FOR_EDIT, PUBLISHED]).withMessage("Status must be either \"For Edit\" or \"Published\""),
-      body("writer").optional().notEmpty().withMessage("Writer cannot be empty"),
-      body("editor").optional().notEmpty().withMessage("Editor cannot be empty"),
-      body("company").optional().notEmpty().withMessage("Company cannot be empty"),
+      body("title").notEmpty().withMessage("Title is required"),
+      body("link").isURL().withMessage("Link must be a valid URL"),
+      body("date").notEmpty().withMessage("Date is required"),
+      body("content").notEmpty().withMessage("Content is required"),
+      body("company").notEmpty().withMessage("Company is required"),
+      body("image").isURL().withMessage("Image is required"),
     ],
     async (req, res) => {
       const errors = validationResult(req);
@@ -86,7 +85,11 @@ app.put(
         return res.status(400).json({errors: errors.array()});
       }
 
+      req.body.date = parseReqDate(req);
+
+      req.body.editor = req.headers["x-username"];
       const {id} = req.params;
+
       const article = req.body;
       await db.collection("articles").doc(id).update(article);
       res.status(200).send();

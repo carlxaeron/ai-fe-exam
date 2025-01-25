@@ -35,6 +35,9 @@ const apiService = {
 
     return axiosInstance().get(helper.getBaseUrl('articles') + getParams(config));
   },
+  updateArticle(id, article) {
+    return axiosInstance().put(helper.getBaseUrl('articles') + '/' + id, article);
+  },
   // companies
   getCompanies() {
     return axiosInstance().get(helper.getBaseUrl('companies'));

@@ -13,6 +13,12 @@ export default createStore({
       show: false,
       title: '',
     },
+    confirmModal: {
+      show: false,
+      title: '',
+      message: '',
+      onConfirm: () => {},
+    },
     currentUser: null,
     // data
     article: null,
@@ -44,6 +50,9 @@ export default createStore({
     },
     setModal(state, modal) {
       state.modal = modal;
+    },
+    setConfirmModal(state, confirmModal) {
+      state.confirmModal = confirmModal;
     },
     // user
     setCurrentUser(state, currentUser) {
@@ -101,6 +110,17 @@ export default createStore({
     },
     toggleModal({ commit, state }, modal) {
       commit('setModal', { ...state.modal, show: !state.modal.show, ...modal });
+    },
+    setConfirmModal({ commit }, confirmModal) {
+      if (!confirmModal.show) {
+        confirmModal.title = '';
+        confirmModal.onConfirm = () => {};
+        confirmModal.message = '';
+      }
+      commit('setConfirmModal', confirmModal);
+    },
+    toggleConfirmModal({ commit, state }, confirmModal) {
+      commit('setConfirmModal', { ...state.confirmModal, show: !state.confirmModal.show, ...confirmModal });
     },
     // articles
     setArticlesLoading({ commit }, loading) {
@@ -190,8 +210,11 @@ export default createStore({
   getters: {
     isDarkTheme: (state) => state.isDarkTheme,
     notification: (state) => state.notification,
-    getCurrentUser: (state) => state.currentUser,
     getModal: (state) => state.modal,
+    getConfirmModal: (state) => state.confirmModal,
+    // user
+    getCurrentUser: (state) => state.currentUser,
+    // companies
     getCompanies: (state) => state.companies,
     // articles
     getArticles: (state) => state.articles,

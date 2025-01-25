@@ -35,6 +35,9 @@ import { WRITER } from '@/utils/helper';
     },
     computed: {
       ...mapGetters(['isDarkTheme', 'isShowAdminArticle']),
+      checkCreateBtn() {
+        return this.$store.getters.getCurrentUser.type === WRITER;
+      },
     },
     methods: {
       getClass() {
@@ -44,9 +47,6 @@ import { WRITER } from '@/utils/helper';
       },
       handleCreateArticle() {
         this.$store.dispatch('showAdminArticle', true);
-      },
-      checkCreateBtn() {
-        return this.$store.getters.getCurrentUser.type === WRITER;
       },
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <button class="btn">
+  <button :class="`btn ${type}`">
     <slot></slot>
   </button>
 </template>
@@ -38,5 +38,32 @@ export default {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 5px;
+  &:hover {
+    background-color: $blue-2;
+  }
+  &.success {
+    background-color: $green-1;
+    &:hover {
+      background-color: $green-2;
+    }
+  }
+  &.danger {
+    background-color: $red-1;
+    &:hover {
+      background-color: $red-2;
+    }
+  }
+  &.warning {
+    background-color: $yellow-1;
+    &:hover {
+      background-color: $yellow-2;
+    }
+  }
+  &.info {
+    background-color: $blue-1;
+    &:hover {
+      background-color: $blue-2;
+    }
+  }
 }
 </style>

@@ -1,14 +1,17 @@
 <template>
   <div v-if="isShow" id="modal-container" :class="`modal-appear modal-size-${size}`">
     <div id="modal">
-      <h2>{{ title }}</h2>
+      <div id="modal-header" v-if="hasHeaderSlot">
+        <slot name="header"></slot>
+      </div>
+      <h2 v-else>{{ title }}</h2>
       <div id="modal-content">
         <slot name="default"></slot>
       </div>
       <div id="modal-actions">
         <slot name="actions"></slot>
       </div>
-      <button id="modal-close" @click="handleClose">
+      <button v-if="withClose" id="modal-close" @click="handleClose">
         <i class="fas fa-times"></i>
       </button>
     </div>
@@ -32,11 +35,18 @@ export default {
       type: String,
       default: 'Modal',
     },
+    withClose: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     ...mapGetters(['getModal']),
     isShow() {
       return this.getModal.show;
+    },
+    hasHeaderSlot() {
+      return !!this.$slots.header;
     },
   },
   components: {
