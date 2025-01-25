@@ -2,10 +2,13 @@
 Developer Exam - CARL LOUIS MANUEL
 ## Added features by CARL LOUIS MANUEL:
 - Dark/Light Theme
-- Loader
+- Loader/Modal/Form Group/Notification/Confirmation/Button/Badge/SwitchTheme Reusable Components
 - Backend/Frontend Validations
-- Security
+- Security in Backend/Frontend
 - Added created_at and updated_at to Article model
+- Firebase Storage Image Upload
+- 404 Not Found
+- SCSS styles
 ## How To Run
 
 ## Specifications
