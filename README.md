@@ -9,6 +9,7 @@ Developer Exam - CARL LOUIS MANUEL
 - Firebase Storage Image Upload
 - 404 Not Found
 - SCSS styles
+- Logout
 ## How To Run
 
 ## Specifications

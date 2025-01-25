@@ -11,12 +11,12 @@
     <template v-if="currentUser?.type === 'editor'">
       <div id="menu-parent">Users</div>
       <nav id="menu-child">
-        <router-link :to="{ name: 'Admin' }">
+        <router-link :to="{ name: 'Users' }">
           <i class="fas fa-users"></i>
-          Manage Users</router-link>
+          Create/Edit</router-link>
       </nav>
     </template>
-    <div id="menu-parent"><hr/></div>
+    <div id="menu-parent">Settings</div>
     <nav id="menu-child">
       <router-link to="/settings" active-class="active">
         <i class="fas fa-cog"></i>Settings</router-link>

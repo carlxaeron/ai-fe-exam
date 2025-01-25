@@ -1,6 +1,8 @@
 <template>
   <div id="admin-toolbar" :class="getClass">
-    <h2>{{ title }}</h2>
+    <h2>
+      <i v-if="icon" :class="icon"></i>
+      {{ title }}</h2>
     <div id="admin-toolbar-right">
       <slot name="right"></slot>
     </div>
@@ -14,6 +16,10 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+    icon: {
+      type: [String, Boolean],
+      default: false,
     },
   },
   mounted() {

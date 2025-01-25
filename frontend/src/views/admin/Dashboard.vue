@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard">
-    <AdminToolbar :title="`${type && type.toUpperCase()}'s Dashboard`" />
+    <AdminToolbar icon="fas fa-tachometer-alt" :title="`${type && type.toUpperCase()}'s Dashboard`" />
     <h3>For {{ type === 'writer' ? 'Edit' : 'Publish' }}</h3>
     <ArticleList :data="articlesForEdit" :loading="isLoadingForEdit" />
     <h3>Published</h3>

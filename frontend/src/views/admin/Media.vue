@@ -1,6 +1,6 @@
 <template>
   <div id="media">
-    <AdminToolbar title="Media" />
+    <AdminToolbar icon="fas fa-images" title="Media" />
     <div id="media-content">
       <h3>Media Content</h3>
       <ArticleList :data="articles" :config="{ withStatus: true, withAction: true }" :loading="articlesLoading" />
