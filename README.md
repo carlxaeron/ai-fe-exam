@@ -5,6 +5,7 @@ Developer Exam - CARL LOUIS MANUEL
 - Loader
 - Backend/Frontend Validations
 - Security
+- Added created_at and updated_at to Article model
 ## How To Run
 
 ## Specifications
