@@ -30,7 +30,7 @@
         <Button v-if="!isEdit" @click="handleCreate">Create</Button>
         <template v-else>
           <Button @click="handleSave">Save</Button>
-          <Button type="success" @click="handlePublish">Publish</Button>
+          <Button v-if="articleObject.isAbleToPublish" type="success" @click="handlePublish">Publish</Button>
         </template>
       </template>
     </Modal>
@@ -47,6 +47,7 @@ import Button from '../Button.vue';
 import FormGroup from '../FormGroup.vue';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '@/services/firebase';
+import { EDITOR, FOR_EDIT, PUBLISHED } from '@/utils/helper';
 
 export default {
   name: 'AdminArticle',
@@ -216,7 +217,7 @@ export default {
       // Create article
       if (this.action === 'create') {
         this.createArticle(formData);
-      } else if (this.action === 'save') {
+      } else if (this.action === 'save' || this.action === 'publish') {
         this.$store.dispatch('toggleConfirmModal', {
           onConfirm: () => {
             this.saveArticle(formData);
@@ -233,7 +234,8 @@ export default {
       this.$refs.submitBtn.click();
     },
     handlePublish() {
-
+      this.action = 'publish';
+      this.$refs.submitBtn.click();
     },
 
     // API calls
@@ -252,10 +254,14 @@ export default {
         });
     },
     saveArticle(formData) {
+      if (this.action === 'publish') {
+        formData.append('status', PUBLISHED);
+      }
       apiService.updateArticle(this.getArticle.id, formData)
         .then((response) => {
           if(response.status === 200) {
-            this.$store.commit('setNotification', { type: 'success', message: 'Article saved successfully', show: true });
+            const message = this.action === 'save' ? 'Article saved successfully' : 'Article published successfully';
+            this.$store.commit('setNotification', { type: 'success', message, show: true });
             this.$store.dispatch('showAdminArticle', false);
             this.resetForm();
             this.$store.dispatch('fetchGlobalArticles');
@@ -267,12 +273,18 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getModal', 'getArticle']),
+    ...mapGetters(['getModal', 'getArticle', 'getCurrentUser']),
     companies() {
       return this.$store.getters.getCompanies;
     },
     modal() {
       return this.getModal;
+    },
+    articleObject() {
+      return {
+        isEdit: this.isEdit,
+        isAbleToPublish: this.getArticle.status === FOR_EDIT && this.getCurrentUser.type === EDITOR,
+      }
     },
     isEdit() {
       return this.getArticle;

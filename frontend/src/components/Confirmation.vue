@@ -62,7 +62,6 @@ export default {
   z-index: 1001;
   padding: 1rem;
   width: 100%;
-  color: red;
   &.confirmation-off {
     display: block;
   }

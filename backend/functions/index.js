@@ -4,7 +4,7 @@ const admin = require("firebase-admin");
 const {body, validationResult} = require("express-validator");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const {FOR_EDIT, PUBLISHED, parseDate, parseReqDate, WRITER} = require("../utils");
+const {FOR_EDIT, PUBLISHED, parseDate, parseReqDate, WRITER, EDITOR} = require("../utils");
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -53,16 +53,17 @@ app.post(
         return res.status(400).json({errors: errors.array()});
       }
 
-      const user = checkUserValidation(req, res);
+      const user = await checkUserValidation(req, res);
       if (user.type !== WRITER) {
         return res.status(401).json({error: "Unauthorized"});
       }
 
-      req.body.date = parseReqDate(req);
-
       const article = req.body;
+      article.date = parseReqDate(req);
       article.writer = req.headers["x-username"];
       article.status = FOR_EDIT;
+      article.created_at = new Date();
+      article.updated_at = new Date();
       await db.collection("articles").add(article);
       res.status(201).send();
     },
@@ -85,12 +86,29 @@ app.put(
         return res.status(400).json({errors: errors.array()});
       }
 
+      const user = await checkUserValidation(req, res);
+      if (req.body.status && req.body.status === PUBLISHED) {
+        if (user.type === EDITOR) {
+          // do nothing
+        } else {
+          return res.status(401).json({error: "Unauthorized"});
+        }
+      }
       req.body.date = parseReqDate(req);
+      if (user.type === EDITOR) req.body.editor = req.headers["x-username"];
 
-      req.body.editor = req.headers["x-username"];
       const {id} = req.params;
 
+      const articleSnapshot = await db.collection("articles").doc(id).get();
+      if (!articleSnapshot.exists) {
+        return res.status(400).json({error: "Article not found"});
+      }
+      if (articleSnapshot.data().status === PUBLISHED && req.body.status === PUBLISHED) {
+        return res.status(400).json({error: "Article is already published"});
+      }
+
       const article = req.body;
+      article.updated_at = new Date();
       await db.collection("articles").doc(id).update(article);
       res.status(200).send();
     },
