@@ -1,6 +1,6 @@
 <template>
   <div id="dashboard">
-    <AdminToolbar :title="`${type.toUpperCase()}'s Dashboard`" />
+    <AdminToolbar :title="`${type && type.toUpperCase()}'s Dashboard`" />
     <h3>For {{ type === 'writer' ? 'Edit' : 'Publish' }}</h3>
     <ArticleList :data="articlesForEdit" :loading="isLoadingForEdit" />
     <h3>Published</h3>
@@ -30,7 +30,7 @@
         return this.$store.state.currentUser;
       },
       type() {
-        return this.currentUser.type;
+        return this.currentUser?.type;
       },
       articlesForEdit() {
         return this.$store.state.articlesForEdit;

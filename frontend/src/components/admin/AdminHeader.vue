@@ -7,8 +7,8 @@
         <i class="fas fa-user"></i>
       </div>
       <div id="admin-user-name">
-        {{ currentUser.firstName }} {{ currentUser.lastName }}
-        <span>{{ currentUser.type }}</span>
+        {{ currentUser?.firstName }} {{ currentUser?.lastName }}
+        <span>{{ currentUser?.type }}</span>
       </div>
       <div class="admin-divider"></div>
       <SwitchTheme />
@@ -46,6 +46,13 @@ export default {
     },
     confirm() {
       this.showLogoutConfirmation = false;
+      this.$router.push({ name: 'Login' });
+      this.$store.dispatch('logout');
+      this.$store.dispatch('setNotification', {
+        type: 'success',
+        message: 'Logged out successfully',
+        show: true,
+      });
     },
     cancel() {
       this.showLogoutConfirmation = false;

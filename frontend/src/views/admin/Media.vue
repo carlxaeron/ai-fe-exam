@@ -40,7 +40,7 @@ import { mapGetters } from 'vuex';
         return this.$store.state.currentUser;
       },
       type() {
-        return this.currentUser.type;
+        return this.currentUser?.type;
       },
       articles() {
         return this.$store.state.articles;

@@ -36,7 +36,7 @@ import { WRITER } from '@/utils/helper';
     computed: {
       ...mapGetters(['isDarkTheme', 'isShowAdminArticle']),
       checkCreateBtn() {
-        return this.$store.getters.getCurrentUser.type === WRITER;
+        return this.$store.getters.getCurrentUser?.type === WRITER;
       },
     },
     methods: {

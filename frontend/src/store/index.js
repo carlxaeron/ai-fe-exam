@@ -122,6 +122,10 @@ export default createStore({
     toggleConfirmModal({ commit, state }, confirmModal) {
       commit('setConfirmModal', { ...state.confirmModal, show: !state.confirmModal.show, ...confirmModal });
     },
+    // user
+    logout({ commit }) {
+      commit('setCurrentUser', null);
+    },
     // articles
     setArticlesLoading({ commit }, loading) {
       commit('setArticlesLoading', loading);

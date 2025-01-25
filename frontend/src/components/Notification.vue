@@ -29,8 +29,8 @@ export default {
 <style lang="scss" scoped>
 #notification {
   position: fixed;
-  top: 0;
-  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 1001;
   padding: 1rem;
   width: 100%;
@@ -48,6 +48,8 @@ export default {
   font-weight: bold;
   position: absolute;
   animation: slide-in 0.2s ease-out;
+  bottom: 0;
+  left: 0;
 }
 
 .success {
@@ -59,23 +61,18 @@ export default {
 }
 
 @keyframes slide-in {
-  0% {
-    opacity: 0;
-    transform: translateY(-100%);
+  from {
+    transform: translateY(100%);
   }
-  100% {
-    opacity: 1;
+  to {
     transform: translateY(0);
   }
 }
-
 @keyframes slide-out {
-  0% {
-    opacity: 1;
+  from {
     transform: translateY(0);
   }
-  100% {
-    opacity: 0;
+  to {
     transform: translateY(100%);
   }
 }

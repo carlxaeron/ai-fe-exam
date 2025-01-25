@@ -186,7 +186,7 @@ export default {
       });
       
       if (withError) {
-        return this.$store.commit('setNotification', { type: 'error', message: withError.toUpperCase() + ' field are required', show: true });
+        return this.$store.commit('setNotification', { type: 'error', message: withError && withError.toUpperCase() + ' field are required', show: true });
       }
 
       // valid link using regex pattern with starts with http or https protocol and ends with a valid domain name
@@ -279,7 +279,7 @@ export default {
     articleObject() {
       return {
         isEdit: this.isEdit,
-        isAbleToPublish: this.getArticle.status === FOR_EDIT && this.getCurrentUser.type === EDITOR,
+        isAbleToPublish: this.getArticle.status === FOR_EDIT && this.getCurrentUser?.type === EDITOR,
       }
     },
     isEdit() {

@@ -39,7 +39,12 @@ export default {
         .then(response => {
           if (response.status === 200) {
             this.$store.commit('setCurrentUser', response.data);
-            this.$router.push({ name: 'Admin' })
+            this.$router.push({ name: 'Admin' });
+            this.$store.dispatch('setNotification', {
+              type: 'success',
+              message: 'Logged in successfully',
+              show: true,
+            });
           }
           this.loading = false;
         })
