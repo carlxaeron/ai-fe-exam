@@ -44,14 +44,17 @@ const apiService = {
     const response = error.response;
     if (!response) {
       console.error(error);
-      store.commit('setNotification', { type: 'error', message: 'Network error. Please try again later.', show: true });
+      store.commit('setNotification', { type: 'error', message: 'Network error or something error occurred. Please try again later.', show: true });
       return;
     }
     if (response.status === 400) {
       store.commit('setNotification', { type: 'error', message: error.response.data.error ? error.response.data.error : error.response.data.errors[0].msg, show: true });
     } else if (response.status === 401) {
       store.commit('setNotification', { type: 'error', message: 'Invalid credentials', show: true });
+    } else if (response.status === 500) {
+      store.commit('setNotification', { type: 'error', message: 'Server error', show: true });
     }
+    console.error(error);
   },
 };
 

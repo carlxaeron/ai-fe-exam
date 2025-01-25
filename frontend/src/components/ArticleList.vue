@@ -21,7 +21,7 @@
           <td><img v-if="article.image" :src="article.image" alt="Article Image" /></td>
           <td>{{ article.title }}</td>
           <td><a :href="article.link" target="_blank">Link</a></td>
-          <td>{{ article.date }}</td>
+          <td>{{ new Date(article.date).toLocaleString() }}</td>
           <td>{{ article.writer && article.writer.lastName }}{{ article.writer ? ', ' : '' }}{{ article.writer && article.writer.firstName }}</td>
           <td>{{ article.editor && article.editor.lastName }}{{ article.editor ? ', ' : '' }}{{ article.editor && article.editor.firstName }}</td>
           <td v-if="config.withStatus">

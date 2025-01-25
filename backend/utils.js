@@ -3,4 +3,10 @@ const PUBLISHED = 'Published';
 const WRITER = 'writer';
 const EDITOR = 'editor';
 
-module.exports = { FOR_EDIT, PUBLISHED, WRITER, EDITOR };
+const parseDate = date => {
+  return date.toDate().toISOString().slice(0, 16);
+};
+
+module.exports = { FOR_EDIT, PUBLISHED, WRITER, EDITOR
+, parseDate
+ };

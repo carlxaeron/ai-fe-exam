@@ -4,7 +4,7 @@ const admin = require("firebase-admin");
 const {body, validationResult} = require("express-validator");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const {FOR_EDIT, PUBLISHED} = require("../utils");
+const {FOR_EDIT, PUBLISHED, parseDate} = require("../utils");
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -127,7 +127,7 @@ app.get("/articles", async (req, res) => {
     const snapshot = await query.get();
     const articles = await Promise.all(snapshot.docs.map(async (doc) => {
       const ret = {id: doc.id, ...doc.data()};
-      ret.date = ret.date.toDate();
+      ret.date = parseDate(ret.date);
 
       if (ret.writer) {
         const writerSnapshot = await db.collection("users").where("username", "==", ret.writer).get();
