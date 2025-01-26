@@ -138,6 +138,13 @@ export default {
     padding: 2rem;
     border-radius: 0.5rem;
     position: relative;
+    @media (max-width: #{$md}) {
+      display: flex;
+      flex-direction: column;
+      #modal-content {
+        flex: 1;
+      }
+    }
   }
   #modal-content {
     max-height: 80vh;

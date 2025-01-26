@@ -147,4 +147,7 @@ import Footer from '../Footer.vue';
     font-size: 1.5rem;
     cursor: pointer;
   }
+  #footer {
+    position: inherit;
+  }
 </style>
