@@ -113,15 +113,14 @@ export default {
     &.modal-appear {
       animation: modal-appear 0.3s ease;
     }
-    @media screen and (max-width: #{$md}) {
+    @media (max-width: #{$md}) {
       #modal {
         width: 90% !important;
       }
     }
-    @media screen and (max-width: #{$sm}) {
+    @media (max-width: #{$sm}) {
       #modal {
         width: 100% !important;
-        height: 100% !important;
       }
     }
   }
