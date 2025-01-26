@@ -1,10 +1,51 @@
+const FOR_EDIT = "For Edit";
+const PUBLISHED = "Published";
+const WRITER = "writer";
+const EDITOR = "editor";
+const ACTIVE = "Active";
+const INACTIVE = "Inactive";
+
+const parseDate = (date) => {
+  return date.toDate().toISOString().slice(0, 16);
+};
+
+const parseReqDate = (req, res) => {
+  const {date} = req.body;
+  let parsedDate;
+  if (date) {
+    parsedDate = new Date(date);
+    if (isNaN(parsedDate.getTime())) {
+      return res.status(400).json({error: "Invalid date format"});
+    } else {
+      req.body.date = parsedDate;
+    }
+  } else {
+    req.body.date = new Date();
+  }
+
+  return req.body.date;
+};
+
+const userResponseJson = (user) => {
+  return {
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    username: user.username,
+    email: user.email,
+    type: user.type,
+    status: user.status,
+    created_at: user.created_at ? parseDate(user.created_at) : null,
+    updated_at: user.updated_at ? parseDate(user.updated_at) : null,
+  };
+};
+
 /* eslint-disable max-len */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const {body, validationResult} = require("express-validator");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const {FOR_EDIT, PUBLISHED, parseDate, parseReqDate, WRITER, EDITOR, ACTIVE, userResponseJson, INACTIVE} = require("../utils");
 const {Filter} = require("firebase-admin/firestore");
 
 admin.initializeApp();
@@ -14,7 +55,7 @@ const app = require("express")();
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: ["https://carlxaeron.github.io", "http://localhost:8080"],
+  origin: ["https://carlxaeron.github.io", "http://localhost:8080", "https://carlxaeron.github.io/"],
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
@@ -394,7 +435,6 @@ app.post(
         return res.status(401).send();
       }
 
-      // exlude password from response
       const response = snapshot.docs[0].data();
 
       res.json(userResponseJson(response));

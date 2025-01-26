@@ -10,7 +10,7 @@
       </thead>
       <tbody>
         <tr v-if="articles.length === 0">
-          <td :colspan="getColSpan">No articles found.</td>
+          <td :colspan="getCol.count">No articles found.</td>
         </tr>
         <tr v-else v-for="article in articles" :key="article.id">
           <td><img v-if="article.image" :src="article.image" alt="Article Image" /></td>

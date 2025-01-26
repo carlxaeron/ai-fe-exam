@@ -27,13 +27,22 @@ export default {
     ConfirmationComponent,
   },
   methods: {
-    ...mapActions(['applyInitialTheme', 'toggleConfirmModal']),
+    ...mapActions(['applyInitialTheme', 'toggleConfirmModal', 'setViewPort']),
     confirmationConfirm() {
       this.toggleConfirmModal();
       this.getConfirmModal.onConfirm();
     },
     confirmationCancel() {
       this.toggleConfirmModal();
+    },
+    handleResize() {
+      console.log('Resizing...');
+      this.calculateViewPort();
+    },
+    calculateViewPort() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      this.setViewPort({ width, height });
     }
   },
   computed: {
@@ -57,6 +66,10 @@ export default {
   mounted() {
     document.dispatchEvent(new Event('render-event'));
     this.applyInitialTheme();
+
+    document.addEventListener('resize', this.handleResize);
+    window.onresize = this.handleResize;
+    this.calculateViewPort();
   }
 }
 </script>

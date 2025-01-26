@@ -4,6 +4,8 @@ import { createStore } from 'vuex';
 export default createStore({
   state: {
     isDarkTheme: false,
+    viewPort: false,
+    closeMenu: false,
     notification: {
       message: '',
       type: 'success',
@@ -54,6 +56,12 @@ export default createStore({
     },
     setConfirmModal(state, confirmModal) {
       state.confirmModal = confirmModal;
+    },
+    setViewPort(state, viewPort) {
+      state.viewPort = viewPort;
+    },
+    setCloseMenu(state, closeMenu) {
+      state.closeMenu = closeMenu;
     },
     // user
     setCurrentUser(state, currentUser) {
@@ -128,6 +136,26 @@ export default createStore({
     },
     toggleConfirmModal({ commit, state }, confirmModal) {
       commit('setConfirmModal', { ...state.confirmModal, show: !state.confirmModal.show, ...confirmModal });
+    },
+    setViewPort({ commit }, viewPort) {
+      let wPort = false;
+      if (viewPort.width) {
+        if (viewPort.width > 1200) {
+          wPort = 'xl';
+        } else if (viewPort.width > 992) {
+          wPort = 'lg';
+        } else if (viewPort.width > 768) {
+          wPort = 'md';
+        } else if (viewPort.width > 576) {
+          wPort = 'sm';
+        } else {
+          wPort = 'xs';
+        }
+      }
+      commit('setViewPort', wPort);
+    },
+    setCloseMenu({ commit, state }, closeMenu) {
+      commit('setCloseMenu', closeMenu ? closeMenu : !state.closeMenu);
     },
     // user
     logout({ commit }) {
@@ -242,6 +270,8 @@ export default createStore({
     notification: (state) => state.notification,
     getModal: (state) => state.modal,
     getConfirmModal: (state) => state.confirmModal,
+    getViewPort: (state) => state.viewPort,
+    closeMenu: (state) => state.closeMenu,
     // user
     getCurrentUser: (state) => state.currentUser,
     // users

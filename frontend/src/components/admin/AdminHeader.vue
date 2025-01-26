@@ -1,6 +1,11 @@
 <template>
   <header id="admin-header">
-    <h1>Admin Panel</h1>
+    <div id="admin-left-header">
+      <h1>Admin Panel</h1>
+      <div id="burger-nav" @click="() => setCloseMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
     <div id="admin-right-header">
       <div class="admin-divider"></div>
       <div id="admin-user">
@@ -23,6 +28,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Confirmation from '../Confirmation.vue';
 import SwitchTheme from '../SwitchTheme.vue';
 
@@ -42,6 +48,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['setCloseMenu']),
     logout() {
       this.showLogoutConfirmation = true;
     },
@@ -75,6 +82,27 @@ export default {
   background-color: var(--text-color);
   opacity: 0.4;
 }
+#admin-left-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  h1 {
+    min-width: $menuWidth;
+    margin: 0;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+  #burger-nav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    i {
+      font-size: 1.5rem;
+      color: var(--text-color);
+    }
+  }
+}
 #admin-right-header {
   display: flex;
   align-items: center;
@@ -85,6 +113,7 @@ export default {
     border: none;
     i {
       font-size: 1rem;
+      color: var(--text-color);
     }
   }
 }
@@ -120,12 +149,6 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-}
-h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
 }
 nav {
   display: flex;

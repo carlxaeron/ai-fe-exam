@@ -19,9 +19,9 @@
 <script>
   import AdminHeader from '@/components/admin/AdminHeader.vue';
   import AdminMenu from '@/components/admin/AdminMenu.vue';
-  import { mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import AdminArticle from './AdminArticle.vue';
-import { WRITER } from '@/utils/helper';
+  import { WRITER } from '@/utils/helper';
 
   export default {
     name: 'AdminLayout',
@@ -34,17 +34,19 @@ import { WRITER } from '@/utils/helper';
       document.dispatchEvent(new Event('render-event'))
     },
     computed: {
-      ...mapGetters(['isDarkTheme', 'isShowAdminArticle']),
+      ...mapGetters(['isDarkTheme', 'isShowAdminArticle', 'getViewPort', 'closeMenu']),
       checkCreateBtn() {
         return this.$store.getters.getCurrentUser?.type === WRITER;
       },
-    },
-    methods: {
       getClass() {
         return {
           'dark-theme': this.isDarkTheme,
+          'hide-menu': (this.getViewPort === 'sm' || this.getViewPort === 'md' || this.getViewPort === 'xs' || this.closeMenu) ? true : false,
         }
       },
+    },
+    methods: {
+      ...mapActions(['setCloseMenu']),
       handleCreateArticle() {
         this.$store.dispatch('showAdminArticle', true);
       },
@@ -52,24 +54,41 @@ import { WRITER } from '@/utils/helper';
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '@/assets/styles/_variables.scss';
-
+  .hide-menu {
+    #content-menu {
+      transform: translateX(-#{$menuWidth});
+    }
+    #content {
+      padding-left: 2rem;
+    }
+  }
   #admin-content {
     display: flex;
     flex-direction: row;
+    position: relative;
   }
   #content-menu {
     display: flex;
     flex-direction: column;
     border-right: 1px solid #dee2e6;
     padding: 20px;
-    width: 250px;
+    width: $menuWidth;
     height: 100vh;
+    transform: translateX(0);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background-color: var(--background-color);
+    transition: transform 0.3s;
   }
   #content {
     flex: 1;
     padding: 2rem;
+    padding-left: calc(2rem + #{($menuWidth)});
+    transition: padding-left 0.3s;
   }
   .dark-theme {
     @include dark-theme;
