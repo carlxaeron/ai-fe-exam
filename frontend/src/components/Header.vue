@@ -1,22 +1,8 @@
 <template>
-  <header>
-    <router-link v-show="routerMetaType !== 'login'" :to="{name: 'Home'}">
-      <img src="https://placehold.co/250x150" alt="Logo" />
-    </router-link>
+  <header id="header">
     <nav>
       <router-link :to="{name: 'Home'}">Home</router-link>
       <router-link :to="{name: 'Login'}">Login</router-link>
-      <router-link :to="{name: 'Admin'}">Admin</router-link>
-      <div id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link :to="{name: 'Home'}" class="nav-link">Home</router-link> |
-          </li>
-          <li class="nav-item">
-            <router-link :to="{name: 'Login'}" class="nav-link">Login</router-link>
-          </li>
-        </ul>
-      </div>
     </nav>
     <SwitchTheme />
   </header>
@@ -39,9 +25,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header {
+@import '@/assets/styles/_variables.scss';
+
+#header {
   padding: 10px;
   margin-bottom: 20px;
+  background-color: var(--secondary-color);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   a {
     text-decoration: none;
   }
@@ -53,6 +43,17 @@ header {
     position: absolute;
     top: 0;
     right: 0;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    padding: 10px;
+    a {
+      color: var(--text-color);
+      text-decoration: none;
+      margin-right: 10px;
+    }
   }
 }
 </style>
