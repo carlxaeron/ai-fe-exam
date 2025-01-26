@@ -11,8 +11,27 @@ Developer Exam - CARL LOUIS MANUEL
 - 404 Not Found
 - SCSS styles
 - Logout
-## How To Run
-
+---
+# How To Setup Frontend (Image upload to firebase storage)
+*Go to frontend/ folder then copy the .env.example to .env and fill out *
+---
+# How To Run
+## Frontend
+### To run in localhost
+`cd frontend && npm run serve`
+### To build
+`cd frontend && npm run build`
+### To build for github pages
+`cd frontend && npm run build:gh-pages`
+### To deploy to github pages
+`cd frontend && npm run deploy`
+---
+## Backend
+### To run in localhost
+`cd backend && npm run serve`
+### To deploy to firebase function
+`cd backend && npm run deploy`
+---
 ## Specifications
 - Develop a Writer/Editor Dashboard Site that has the ability to create, edit, and publish an article related to a company. 
 - Should implement web responsive front-end application using Vue.js.
