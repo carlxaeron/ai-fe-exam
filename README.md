@@ -14,6 +14,7 @@ Developer Exam - CARL LOUIS MANUEL
 ---
 # How To Setup Frontend (Image upload to firebase storage)
 *Go to frontend/ folder then copy the .env.example to .env and fill out *
+
 ---
 # How To Run
 ## Frontend
