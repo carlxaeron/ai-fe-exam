@@ -3,18 +3,12 @@
     <Table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Username</th>
-          <th>Create</th>
-          <th>Type</th>
-          <th>Status</th>
-          <th v-if="edit">Action</th>
+          <th v-for="col in getCol.columns" :key="col">{{ col }}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-if="users.length === 0">
-          <td colspan="3">No users found.</td>
+          <td :colspan="getCol.count">No users found.</td>
         </tr>
         <tr v-else v-for="user in users" :key="user.id">
           <td>{{ user.id }}</td>
@@ -67,6 +61,16 @@ export default {
   computed: {
     users() {
       return this.data;
+    },
+    getCol() {
+      const columns = ['ID', 'Name', 'Username', 'Create', 'Type', 'Status'];
+      if (this.edit) {
+        columns.push('Action');
+      }
+      return {
+        columns,
+        count: columns.length,
+      };
     },
   },
   methods: {
