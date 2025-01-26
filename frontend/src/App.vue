@@ -76,12 +76,4 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/_variables.scss';
-
-.light-theme {
-  @include light-theme;
-}
-
-.dark-theme {
-  @include dark-theme;
-}
 </style>

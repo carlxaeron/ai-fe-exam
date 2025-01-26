@@ -7,7 +7,7 @@ export default createStore({
     viewPort: false,
     closeMenu: {
       desktop: false,
-      mobile: false,
+      mobile: true,
     },
     notification: {
       message: '',

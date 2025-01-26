@@ -39,7 +39,6 @@
         return this.$store.getters.getCurrentUser?.type === WRITER;
       },
       getClass() {
-        console.log(this.closeMenu);
         return {
           'dark-theme': this.isDarkTheme,
           'hide-menu': this.closeMenu.desktop,
@@ -100,6 +99,7 @@
     display: flex;
     flex-direction: row;
     position: relative;
+    overflow: auto;
   }
   #content-menu {
     display: flex;
