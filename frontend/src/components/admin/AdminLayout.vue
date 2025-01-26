@@ -19,7 +19,7 @@
 <script>
   import AdminHeader from '@/components/admin/AdminHeader.vue';
   import AdminMenu from '@/components/admin/AdminMenu.vue';
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
   import AdminArticle from './AdminArticle.vue';
   import { WRITER } from '@/utils/helper';
 
@@ -39,14 +39,17 @@
         return this.$store.getters.getCurrentUser?.type === WRITER;
       },
       getClass() {
+        console.log(this.closeMenu);
         return {
           'dark-theme': this.isDarkTheme,
-          'hide-menu': (this.getViewPort === 'sm' || this.getViewPort === 'md' || this.getViewPort === 'xs' || this.closeMenu) ? true : false,
+          'hide-menu': this.closeMenu.desktop,
+          'show-menu': !this.closeMenu.desktop,
+          'hide-mobile-menu': this.closeMenu.mobile,
+          'show-mobile-menu': !this.closeMenu.mobile,
         }
       },
     },
     methods: {
-      ...mapActions(['setCloseMenu']),
       handleCreateArticle() {
         this.$store.dispatch('showAdminArticle', true);
       },
@@ -56,12 +59,41 @@
 
 <style lang="scss" scoped>
   @import '@/assets/styles/_variables.scss';
-  .hide-menu {
-    #content-menu {
-      transform: translateX(-#{$menuWidth});
+  
+  @media (min-width: #{$md}) {
+    .hide-menu {
+      #content {
+        padding-left: 2rem;
+      }
+      #content-menu {
+        transform: translateX(-#{$menuWidth});
+      }
     }
-    #content {
-      padding-left: 2rem;
+    .show-menu {
+      #content {
+        padding-left: calc(2rem + #{($menuWidth)});
+      }
+      #content-menu {
+        transform: translateX(0);
+      }
+    }
+  }
+  @media (max-width: #{$md}) {
+    .hide-mobile-menu {
+      #content {
+        padding-left: 2rem;
+      }
+      #content-menu {
+        transform: translateX(-100%);
+      }
+    }
+    .show-mobile-menu {
+      #content {
+        padding-left: 2rem;
+      }
+      #content-menu {
+        transform: translateX(0);
+      }
     }
   }
   #admin-content {
@@ -81,13 +113,12 @@
     left: 0;
     top: 0;
     z-index: 100;
-    background-color: var(--background-color);
     transition: transform 0.3s;
+    background-color: var(--background-color);
   }
   #content {
     flex: 1;
     padding: 2rem;
-    padding-left: calc(2rem + #{($menuWidth)});
     transition: padding-left 0.3s;
   }
   .dark-theme {

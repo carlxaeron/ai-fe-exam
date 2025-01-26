@@ -18,6 +18,8 @@ export default {
 </script>
 
 <style lang="scss">
+  @import '@/assets/styles/_variables.scss';
+
   .table {
     &.dark-theme {
       a {
@@ -44,6 +46,16 @@ export default {
       }
       img {
         max-width: 100px;
+      }
+    }
+
+    @media (max-width: #{$sm}) {
+      table {
+        font-size: 12px;
+      }
+      th, td {
+        padding: 4px;
+        font-size: 12px;
       }
     }
   }

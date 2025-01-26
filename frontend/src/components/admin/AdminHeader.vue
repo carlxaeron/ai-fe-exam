@@ -2,7 +2,7 @@
   <header id="admin-header">
     <div id="admin-left-header">
       <h1>Admin Panel</h1>
-      <div id="burger-nav" @click="() => setCloseMenu()">
+      <div id="burger-nav" @click="handleMenuNav">
         <i class="fas fa-bars"></i>
       </div>
     </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Confirmation from '../Confirmation.vue';
 import SwitchTheme from '../SwitchTheme.vue';
 
@@ -43,6 +43,7 @@ export default {
     document.dispatchEvent(new Event('render-event'))
   },
   computed: {
+    ...mapGetters(['getViewPort']),
     currentUser() {
       return this.$store.state.currentUser;
     },
@@ -65,6 +66,9 @@ export default {
     cancel() {
       this.showLogoutConfirmation = false;
     },
+    handleMenuNav() {
+      this.setCloseMenu()
+    }
   },
   data() {
     return {

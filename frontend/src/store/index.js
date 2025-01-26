@@ -5,7 +5,10 @@ export default createStore({
   state: {
     isDarkTheme: false,
     viewPort: false,
-    closeMenu: false,
+    closeMenu: {
+      desktop: false,
+      mobile: false,
+    },
     notification: {
       message: '',
       type: 'success',
@@ -154,8 +157,18 @@ export default createStore({
       }
       commit('setViewPort', wPort);
     },
-    setCloseMenu({ commit, state }, closeMenu) {
-      commit('setCloseMenu', closeMenu ? closeMenu : !state.closeMenu);
+    setCloseMenu({ commit, state }) {
+      if (state.viewPort === 'lg' || state.viewPort === 'xl') {
+        commit('setCloseMenu', {
+          ...state.closeMenu,
+          desktop: !state.closeMenu.desktop,
+        });
+      } else {
+        commit('setCloseMenu', {
+          ...state.closeMenu,
+          mobile: !state.closeMenu.mobile,
+        });
+      }
     },
     // user
     logout({ commit }) {

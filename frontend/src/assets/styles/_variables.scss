@@ -16,6 +16,11 @@ $secondary-color: $light-secondary-color;
 $background-color: $light-background-color;
 $text-color: $light-text-color;
 
+$xl: 1200px;
+$lg: 992px;
+$md: 768px;
+$sm: 576px;
+
 $red-1: #f44336;
 $red-2: #e57373;
 $red-3: #ef9a9a;
@@ -67,6 +72,11 @@ $yellow-5: #fffde7;
   --info-color: #2196f3;
   --warning-color: #ff9800;
   --danger-color: #f44336;
+
+  --breakpoint-xl: ${$xl}px;
+  --breakpoint-lg: ${$lg}px;
+  --breakpoint-md: ${$md}px;
+  --breakpoint-sm: ${$sm}px;
 }
 
 /* Dark theme variables */
@@ -76,10 +86,5 @@ $yellow-5: #fffde7;
   --background-color: #0f1a24;
   --text-color: #f8f9fa;
 }
-
-$xl: 1200px;
-$lg: 992px;
-$md: 768px;
-$sm: 576px;
 
 $menuWidth: 250px;
