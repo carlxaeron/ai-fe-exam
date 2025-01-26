@@ -7,6 +7,7 @@ Developer Exam - CARL LOUIS MANUEL
 - Security in Backend/Frontend
 - Added created_at and updated_at to Article model
 - Firebase Storage Image Upload
+- Firebase function as backend and API (serverless backend)
 - 404 Not Found
 - SCSS styles
 - Logout

@@ -16,6 +16,7 @@
       <button id="logout-btn" @click="logout">
         <i class="fas fa-sign-out-alt"></i>
       </button>
+      <div class="admin-divider" style="opacity: 0;"></div>
     </div>
     <Confirmation :show="showLogoutConfirmation" title="Logout?" @onConfirm="confirm" @onCancel="cancel" />
   </header>
@@ -80,7 +81,11 @@ export default {
   gap: 1rem;
   justify-content: center;
   #logout-btn {
-
+    background: none;
+    border: none;
+    i {
+      font-size: 1rem;
+    }
   }
 }
 #admin-user-name {

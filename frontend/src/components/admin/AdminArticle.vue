@@ -1,6 +1,6 @@
 <template>
   <div id="admin-article">
-    <Modal :show="modal.show" :title="getTitle()" @onClose="close">
+    <Modal :show="modal.show" :title="getTitle()" @onClose="close" size="lg">
       <template v-slot:default>
         <form @submit.prevent="submitForm">
           <FormGroup id="title" label="Title" v-model="article.title" :value="article.title" :required="true"/>
@@ -9,7 +9,7 @@
               <QuillEditor v-model:content="article.content" content-type="html" :options="editorOptions" />
             </template>
           </FormGroup>
-          <FormGroup id="link" label="Link" v-model="article.link" :value="article.link" :componen-type="link" :required="true" />
+          <FormGroup id="link" label="Link" v-model="article.link" :value="article.link" :required="true" />
           <FormGroup :value="article.image" :loading="image.uploading" id="image" label="Image" v-model="article.image" :required="isEdit ? false : true">
             <template v-slot:etc>
               <input type="file" ref="image" :required="isEdit ? false : true" accept="image/*" @change="handleImage"/>

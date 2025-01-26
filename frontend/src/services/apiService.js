@@ -42,6 +42,19 @@ const apiService = {
   getCompanies() {
     return axiosInstance().get(helper.getBaseUrl('companies'));
   },
+  createCompany(company) {
+    return axiosInstance().post(helper.getBaseUrl('companies'), company);
+  },
+  // users
+  getUsers() {
+    return axiosInstance().get(helper.getBaseUrl('users'));
+  },
+  createUser(user) {
+    return axiosInstance().post(helper.getBaseUrl('users'), user);
+  },
+  updateUser(id, user) {
+    return axiosInstance().put(helper.getBaseUrl('users') + '/' + id, user);
+  },
   // helper functions
   handleError(error) {
     const response = error.response;

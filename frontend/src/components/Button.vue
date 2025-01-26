@@ -1,5 +1,6 @@
 <template>
   <button :class="`btn ${type}`">
+    <i :class="icon" v-if="icon"></i>
     <slot></slot>
   </button>
 </template>
@@ -15,6 +16,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    icon: {
+      type: String,
+      default: '',
     },
   },
   mounted() {

@@ -86,6 +86,14 @@ export default {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
+    &.modal-size-lg {
+      #modal {
+        width: 80%;
+        @media screen and (min-width: #{$lg}) {
+          width: 1000px;
+        }
+      }
+    }
     &.modal-size-md {
       #modal {
         width: 70%;

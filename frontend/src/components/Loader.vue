@@ -59,7 +59,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 9999;
+    z-index: 10;
   }
   .lds-ellipsis {
     display: inline-block;

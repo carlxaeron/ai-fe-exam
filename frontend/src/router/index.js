@@ -6,7 +6,7 @@ import store from '../store';
 import Media from '@/views/admin/Media.vue';
 import NotFound from '@/views/NotFound.vue';
 import Users from '@/views/admin/Users.vue';
-import { EDITOR } from '@/utils/helper';
+import { ACTIVE, EDITOR } from '@/utils/helper';
 
 // Import your views/components here
 
@@ -55,9 +55,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.type === 'admin') {
-    console.log(to);
     const user = store.getters.getCurrentUser;
-    if (!user || user.status !== 'active') {
+    if (!user || user.status !== ACTIVE) {
       store.commit('setNotification', { type: 'error', message: 'You are not authorized to access this page', show: true });
       next({ name: 'Login' });
     } else if(to.name === 'Users' && user.type !== EDITOR) {

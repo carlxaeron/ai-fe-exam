@@ -3,7 +3,7 @@
     <h2>Login</h2>
     <div class="container" id="login-container">
       <form @submit.prevent="!loading && login()">
-        <FormGroup id="username" label="Username" v-model="username" :value="username" :required="true" />
+        <FormGroup id="username" label="Username/Email" v-model="username" :value="username" :required="true" />
         <FormGroup id="password" label="Password" v-model="password" :value="password" :component-type="'input'" :component-props="{ type: 'password', minlength: 8 }" :required="true" />
         <Button :disabled="loading" type="submit">Login</Button>
       </form>

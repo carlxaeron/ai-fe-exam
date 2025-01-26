@@ -30,6 +30,7 @@ export default createStore({
     articlesPublishedLoading: false,
     companies: [],
     users: [],
+    usersLoading: false,
   },
   mutations: {
     toggleTheme(state) {
@@ -57,6 +58,12 @@ export default createStore({
     // user
     setCurrentUser(state, currentUser) {
       state.currentUser = currentUser;
+    },
+    setUsers(state, users) {
+      state.users = users;
+    },
+    setUsersLoading(state, loading) {
+      state.usersLoading = loading;
     },
     // articles
     setArticles(state, articles) {
@@ -125,6 +132,25 @@ export default createStore({
     // user
     logout({ commit }) {
       commit('setCurrentUser', null);
+    },
+    // users
+    setUsers({ commit }, users) {
+      commit('setUsers', users);
+    },
+    setUsersLoading({ commit }, loading) {
+      commit('setUsersLoading', loading);
+    },
+    fetchUsers({ commit }) {
+      commit('setUsersLoading', true);
+      apiService.getUsers()
+        .then((response) => {
+          commit('setUsersLoading', false);
+          commit('setUsers', response.data);
+        })
+        .catch((error) => {
+          commit('setUsersLoading', false);
+          apiService.handleError(error);
+        });
     },
     // articles
     setArticlesLoading({ commit }, loading) {
@@ -218,6 +244,8 @@ export default createStore({
     getConfirmModal: (state) => state.confirmModal,
     // user
     getCurrentUser: (state) => state.currentUser,
+    // users
+    getUsers: (state) => state.users,
     // companies
     getCompanies: (state) => state.companies,
     // articles
@@ -230,5 +258,6 @@ export default createStore({
     articlesLoading: (state) => state.articlesLoading,
     articlesForEditLoading: (state) => state.articlesForEditLoading,
     articlesPublishedLoading: (state) => state.articlesPublishedLoading,
+    usersLoading: (state) => state.usersLoading,
   },
 });

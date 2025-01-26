@@ -11,7 +11,7 @@
     <template v-if="currentUser?.type === 'editor'">
       <div id="menu-parent">Users</div>
       <nav id="menu-child">
-        <router-link :to="{ name: 'Users' }">
+        <router-link :to="{ name: 'Users' }" active-class="active">
           <i class="fas fa-users"></i>
           Create/Edit</router-link>
       </nav>

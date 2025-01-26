@@ -1,16 +1,15 @@
 <template>
-  <div id="media">
+  <Section id="admin-media">
     <AdminToolbar icon="fas fa-images" title="Media" />
-    <div id="media-content">
-      <h3>Media Content</h3>
-      <ArticleList :data="articles" :config="{ withStatus: true, withAction: true }" :loading="articlesLoading" />
-    </div>
-  </div>
+    <h3>Media Content</h3>
+    <ArticleList :data="articles" :config="{ withStatus: true, withAction: true }" :loading="articlesLoading" />
+  </Section>
 </template>
 
 <script>
 import AdminToolbar from '@/components/admin/AdminToolbar.vue';
-import ArticleList from '@/components/ArticleList.vue';
+import ArticleList from '@/components/admin/AdminArticleList.vue';
+import Section from '@/components/Section.vue';
 import { mapGetters } from 'vuex';
 
   export default {
@@ -18,6 +17,7 @@ import { mapGetters } from 'vuex';
     components: {
       AdminToolbar,
       ArticleList,
+      Section,
     },
     data() {
       return {
@@ -50,12 +50,7 @@ import { mapGetters } from 'vuex';
 </script>
 
 <style lang="scss" scoped>
-  #media {
-    #media-content {
-      h3 {
-        margin-top: 2rem;
-        margin-bottom: 0.5rem;
-      }
-    }
+  #admin-media {
+
   }
 </style>

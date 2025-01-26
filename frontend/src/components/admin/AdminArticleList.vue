@@ -1,21 +1,16 @@
 <template>
-  <div class="article-list">
+  <div class="admin-article-list">
     <Table>
       <thead>
         <tr>
-          <th>Image</th>
-          <th>Title</th>
-          <th>Link</th>
-          <th>Date</th>
-          <th>Writer</th>
-          <th>Editor</th>
+          <th v-for="col in getCol.columns" :key="col">{{ col }}</th>
           <th v-if="config.withStatus">Status</th>
           <th v-if="isWithAction">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr v-if="articles.length === 0">
-          <td colspan="7">No articles found.</td>
+          <td :colspan="getColSpan">No articles found.</td>
         </tr>
         <tr v-else v-for="article in articles" :key="article.id">
           <td><img v-if="article.image" :src="article.image" alt="Article Image" /></td>
@@ -27,7 +22,7 @@
           <td v-if="config.withStatus">
             <Badge :type="getBadgeType(article.status)">{{ article.status }}</Badge>
           </td>
-          <td v-if="isWithAction">
+          <td v-if="isWithAction" style="text-align: center;">
             <Button v-if="isAbleToEdit(article.status)" @click="handleEdit(article)">Edit</Button>
           </td>
         </tr>
@@ -39,11 +34,11 @@
 
 <script>
 import { EDITOR, FOR_EDIT, WRITER } from '@/utils/helper';
-import Button from './Button.vue';
-import Loader from './Loader.vue';
+import Button from '../Button.vue';
+import Loader from '../Loader.vue';
 const { mapGetters } = require('vuex');
-import Badge from './Badge.vue';
-import Table from './Table.vue';
+import Badge from '../Badge.vue';
+import Table from '../Table.vue';
 
 export default {
   name: 'ArticleListComponent',
@@ -78,7 +73,18 @@ export default {
     },
     userType() {
       return this.getCurrentUser?.type;
-    }
+    },
+    getCol() {
+      const columns = ['Image', 'Title', 'Link', 'Date', 'Writer', 'Editor'];
+      let colSpan = columns.length;
+      if (this.config.withStatus) colSpan++;
+      if (this.isWithAction) colSpan++;
+      
+      return {
+        count: colSpan,
+        columns,
+      }
+    },
   },
   methods: {
     isAbleToEdit(articleStatus) {
@@ -116,7 +122,7 @@ export default {
 </script>
 
 <style lang="scss">
-.article-list {
+.admin-article-list {
   position: relative;
 }
 </style>
