@@ -249,7 +249,7 @@ app.post(
     [
       body("firstName").notEmpty().withMessage("Firstname is required"),
       body("lastName").notEmpty().withMessage("Lastname is required"),
-      body("username").notEmpty().withMessage("Username is required"),
+      body("username").isLength({min: 8}).withMessage("Username is required"),
       body("password").isLength({min: 8}).withMessage("Password must be at least 8 characters long"),
       body("email").isEmail().withMessage("Email must be a valid email address"),
       body("type").isIn([WRITER, EDITOR]).withMessage("Type must be either \"Writer\" or \"Editor\""),
