@@ -13,6 +13,7 @@
     <button v-if="checkCreateBtn" title="Create Article" id="create-admin-article-btn" @click="handleCreateArticle">
       <i class="fas fa-plus"></i>
     </button>
+    <Footer />
   </main>
 </template>
 
@@ -22,6 +23,7 @@
   import { mapGetters } from 'vuex';
   import AdminArticle from './AdminArticle.vue';
   import { WRITER } from '@/utils/helper';
+import Footer from '../Footer.vue';
 
   export default {
     name: 'AdminLayout',
@@ -29,6 +31,7 @@
       AdminHeader,
       AdminMenu,
       AdminArticle,
+      Footer,
     },
     mounted() {
       document.dispatchEvent(new Event('render-event'))
@@ -100,6 +103,7 @@
     flex-direction: row;
     position: relative;
     overflow: auto;
+    min-height: 100vh;
   }
   #content-menu {
     display: flex;
@@ -127,7 +131,7 @@
       background-color: darken($background-color, 10%);
       border-right-color: darken($background-color, 20%);
     }
-    #content {
+    #content, #admin-content {
       background-color: darken($background-color, 5%);
     }
   }

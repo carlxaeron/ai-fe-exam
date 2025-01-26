@@ -1,6 +1,6 @@
 <template>
   <footer id="footer">
-    <p>&copy; {{ new Date().getFullYear() }}</p>
+    <p>&copy; {{ new Date().getFullYear() }} CARL LOUIS MANUEL</p>
   </footer>
 </template>
 
@@ -20,5 +20,6 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
+    z-index: 1000;
   }
 </style>
