@@ -25,12 +25,14 @@ Developer Exam - CARL LOUIS MANUEL
 `cd frontend && npm run build:gh-pages`
 ### To deploy to github pages
 `cd frontend && npm run deploy`
+
 ---
 ## Backend
 ### To run in localhost
 `cd backend && npm run serve`
 ### To deploy to firebase function
 `cd backend && npm run deploy`
+
 ---
 ## Specifications
 - Develop a Writer/Editor Dashboard Site that has the ability to create, edit, and publish an article related to a company. 
