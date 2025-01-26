@@ -5,7 +5,8 @@ Developer Exam - CARL LOUIS MANUEL
 - Loader/Modal/Form Group/Notification/Confirmation/Button/Badge/SwitchTheme Reusable Components
 - Backend/Frontend Validations
 - Security in Backend/Frontend
-- Added created_at and updated_at to Article model
+- Article (created_at, updated_at)
+- Users (created_at, updated_at, updated_by, created_by)
 - Firebase Storage Image Upload
 - Firebase function as backend and API (serverless backend)
 - 404 Not Found
