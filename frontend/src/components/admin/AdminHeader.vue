@@ -152,7 +152,7 @@ export default {
 #admin-header {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
 }
 nav {
   display: flex;

@@ -45,6 +45,7 @@ export default {
   #menu-parent {
     font-weight: bold;
     text-transform: uppercase;
+    color: var(--info-color);
   }
   #menu-child {
     display: flex;
